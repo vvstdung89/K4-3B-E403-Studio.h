@@ -1,4 +1,4 @@
-"""CP2 demo entry point: load -> detect -> (stub) decide -> notify.
+"""CSV demo entry point: load -> detect -> batch AI decision -> notify.
 
 Run from the codebase/ directory:
 
@@ -8,9 +8,11 @@ Run from the codebase/ directory:
     python3 main.py --send-to-discord           # also posts the report to
                                                   # DISCORD_WEBHOOK_URL (.env)
 
-No install required for the offline baseline (stdlib only). --send-to-discord
-is the only path that makes a network call; everything else still makes no
-network calls, no writes outside codebase/output/, no mutation of data/.
+Install requirements.txt and configure the LLM provider in codebase/.env.
+Non-empty candidate batches call the configured model even without
+--send-to-discord; that flag additionally posts the report to Discord.
+Model errors keep candidates for manual review. Traces go to codebase/logs/;
+--save writes output/report.md. The source data is read-only.
 """
 
 from __future__ import annotations
@@ -55,8 +57,8 @@ def main() -> None:
     candidates = find_unanswered_questions(messages, now=now)
     print(f"Found {len(candidates)} rule-based candidate(s) (? + no reply_to + >=4h old)")
 
-    print("AI step: STUB (pass-through, no LLM call) -- CP3 will replace this.")
-    decisions = decide(candidates)
+    print("AI step: LangGraph batch classify (one LLM call for the candidate list)")
+    decisions = decide(candidates, all_messages=messages)
 
     report = format_report(decisions)
     print()

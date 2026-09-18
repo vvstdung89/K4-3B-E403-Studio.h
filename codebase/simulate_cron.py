@@ -86,7 +86,7 @@ def main() -> None:
         if not new_candidates:
             continue
 
-        decisions = decide(new_candidates)
+        decisions = decide(new_candidates, all_messages=messages)
         report = format_report(decisions)
         header = f"=== Cron tick {tick:%Y-%m-%d %H:%M} -- {len(new_candidates)} new ==="
         print(f"{header}\n{report}\n")

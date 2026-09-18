@@ -117,7 +117,7 @@ def main() -> None:
         print("No new candidates this run")
         return
 
-    decisions = decide(new_candidates)
+    decisions = decide(new_candidates, all_messages=messages)
     report = format_report(decisions)
     header = f"=== Live run {now:%Y-%m-%d %H:%M} -- {len(new_candidates)} new ==="
     print(f"{header}\n{report}")

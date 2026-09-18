@@ -30,6 +30,6 @@ Offline regression tests:
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-These changes concern the golden-set classifier. The live candidate-decision graph has a separate contract and is not covered by these benchmark scores.
+The offline suite also checks the live batch decision contract with mocked model responses: context forwarding, result ordering, missing items, and failure fallback. These checks do not measure live model quality or Discord delivery. The live candidate-decision graph has a separate contract and is not covered by the golden-set benchmark scores.
 
 For GPT-5 reasoning requests, the factory omits temperature and uses `OPENAI_REASONING_EFFORT` (default `medium`), following the [official parameter compatibility guidance](https://developers.openai.com/api/docs/guides/latest-model?model=gpt-5.4).

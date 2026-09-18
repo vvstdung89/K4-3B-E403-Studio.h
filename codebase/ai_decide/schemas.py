@@ -3,7 +3,8 @@
 
 from __future__ import annotations
 
-from typing import TypedDict, Optional, Any, Literal
+from typing import Any, Literal, Optional, TypedDict
+
 from pydantic import BaseModel, Field
 
 from data.loader import Message
@@ -12,6 +13,7 @@ from detect.rules import Candidate
 
 class CandidateAnalysisOutput(BaseModel):
     """Structured output returned by LLM classifier node."""
+
     is_question: bool = Field(
         description="Whether the message contains a genuine question or request for help from a student."
     )
@@ -20,29 +22,47 @@ class CandidateAnalysisOutput(BaseModel):
     )
     target_labcoach: Optional[str] = Field(
         default="General / Duty LabCoach",
-        description="Extracted target LabCoach if tagged (e.g. '@Lab Coach - Duy Bách'), or 'General / Duty LabCoach' if untagged/general."
+        description="Extracted target LabCoach if tagged (e.g. '@Lab Coach - Duy Bách'), or 'General / Duty LabCoach' if untagged/general.",
     )
     confidence: float = Field(
         ge=0.0,
         le=1.0,
-        description="Confidence score between 0.0 and 1.0 for the decision."
+        description="Confidence score between 0.0 and 1.0 for the decision.",
     )
-    summary: str = Field(
-        description="Concise 1-2 sentence summary of the student's question."
-    )
+    summary: str = Field(description="Concise 1-2 sentence summary of the student's question.")
     rationale: str = Field(
         description="Short explanation of why this question still needs attention or was marked resolved based on thread context."
     )
 
 
 class GraphState(TypedDict, total=False):
-    """State maintained across LangGraph nodes."""
+    """Legacy per-candidate state. Batch paths use DecisionBatchState / BatchGraphState."""
+
     candidate: Candidate
     context_messages: list[Message]
     raw_prompt: str
     raw_response: str
     analysis: Optional[CandidateAnalysisOutput]
     decision: Optional[Any]
+
+
+class BatchCandidateItem(CandidateAnalysisOutput):
+    msg_id: str = Field(description="msg_id of the candidate being classified.")
+
+
+class BatchCandidateOutput(BaseModel):
+    items: list[BatchCandidateItem] = Field(
+        description="One item per candidate msg_id, in any order."
+    )
+
+
+class DecisionBatchState(TypedDict, total=False):
+    candidates: list[Candidate]
+    context_messages: list[Message]
+    raw_prompt: str
+    raw_response: str
+    batch_analysis: Optional[BatchCandidateOutput]
+    decisions: list[Any]
 
 
 class EvalMessageClassification(BaseModel):

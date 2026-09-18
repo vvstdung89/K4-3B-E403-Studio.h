@@ -9,9 +9,9 @@ python-dotenv>=1.2,<2.0
 # REST fetch stays plain urllib, unchanged.
 discord.py>=2.4,<3.0
 
-# --- CP3, added early so everyone's environment installs cleanly from hour one;
-#     not imported/called anywhere yet ---
+# --- CP3: LangGraph decision and evaluation pipelines ---
 langgraph>=0.2,<0.3
 langchain-core>=0.3,<0.4
 langchain-openai>=0.2,<0.4
+langchain-google-genai>=2.0,<3.0
 google-genai

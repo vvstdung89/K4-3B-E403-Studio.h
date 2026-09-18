@@ -78,7 +78,7 @@ async def _reply_with_candidates(interaction: discord.Interaction, messages: lis
         await interaction.followup.send("No unanswered questions right now.", ephemeral=ephemeral)
         return
 
-    decisions = decide(candidates)
+    decisions = decide(candidates, all_messages=messages)
     embeds = [
         discord.Embed.from_dict(format_candidate_embed(d, MIN_HOURS_UNANSWERED, now)) for d in decisions
     ]
