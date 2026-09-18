@@ -1,0 +1,519 @@
+{
+  "case_id": "K4-02",
+  "description": "Hỏi giấy chứng nhận sinh viên: cần người có thẩm quyền",
+  "taxonomy": [
+    "ngoai_pham_vi",
+    "nguon_su_that"
+  ],
+  "taxonomy_reason": "Feature chỉ phát hiện và nhắc LabCoach; không được tự xác nhận việc cấp giấy hoặc kết luận về miễn khám quân sự.",
+  "sheet_response_column": "No reponse",
+  "based_on_data": true,
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "khong_co",
+    "nguoi_phan_hoi": "khong_co",
+    "cau_truc_yeu_cau": "mot_yeu_cau",
+    "loai_yeu_cau": "quyet_dinh_hanh_chinh"
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  },
+  "input": [
+    {
+      "msg_id": "M99806",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D9499",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 11:36",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 7,
+      "content": "[@user]"
+    },
+    {
+      "msg_id": "M19767",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6329",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 13:42",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 40,
+      "content": "C401 ca sáng bạn nào mất thì qua lấy nhá"
+    },
+    {
+      "msg_id": "M47349",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6329",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 13:42",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 22,
+      "content": "[HV] thì 1 thùng sting"
+    },
+    {
+      "msg_id": "M89324",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6329",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 13:42",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 20,
+      "content": "Nữ thì đang suy nghĩ"
+    },
+    {
+      "msg_id": "M67625",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D0433",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 14:20",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 77,
+      "content": "cho em hỏi là được làm nhóm 5 người không ạ hay bắt buộc là nhóm 4 người thôi"
+    },
+    {
+      "msg_id": "M27566",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8143",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 14:24",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 126,
+      "content": "cho em hỏi khóa mình có cấp giấy chứng nhận sinh viên cho học viên không ạ ? Tại phường em đang yêu cầu để miễn khám quân sự ạ"
+    },
+    {
+      "msg_id": "M70525",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D9617",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 14:52",
+      "reply_to": "M67625",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 23,
+      "content": "tối đa 4 người nhé [HV]"
+    },
+    {
+      "msg_id": "M37211",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 15:11",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 121,
+      "content": "các bạn labcoach cho mình hỏi, mình quét mã điểm danh đầy đủ nhưng tsao trên app ko có lịch sử điểm danh nhỉ? mình cảm ơn"
+    },
+    {
+      "msg_id": "M57346",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7688",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:17",
+      "reply_to": "M37211",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 28,
+      "content": "điểm danh gửi mail về it nhé"
+    },
+    {
+      "msg_id": "M28943",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2961",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:21",
+      "reply_to": "M57346",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 61,
+      "content": "là mình mail về IT để kiểm tra các lượt điểm danh của mình ạ?"
+    },
+    {
+      "msg_id": "M41722",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:21",
+      "reply_to": "M57346",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 33,
+      "content": "cụ thể là gửi mail về đâu bạn nhỉ"
+    },
+    {
+      "msg_id": "M26655",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7688",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:22",
+      "reply_to": "M41722",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 199,
+      "content": "cái này thì b phải report đầy đủ, bạn điểm danh hôm nào, có tick chưa, mail bạn là gì, ... rồi gửi bên dev ngta check, chứ giờ bạn gửi mỗi cái hình khó biết lắm á. mail it ở đây nè [link:discord.com]"
+    },
+    {
+      "msg_id": "M58214",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1407",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 15:24",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 67,
+      "content": "các bạn labcoach cho mình hỏi là xem lịch sử điểm danh trên đâu nhỉ"
+    },
+    {
+      "msg_id": "M51989",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:31",
+      "reply_to": "M37211",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 196,
+      "content": "cho  mình hỏi là mấy hôm nay bọn mình đều cho các học viên điểm danh bằng cách quét mã QR điền form thì không biết mấy hôm đó bạn học ở lớp nào để bọn mình có thể nắm được rõ và xem hỗ trợ các bạn"
+    },
+    {
+      "msg_id": "M97078",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:32",
+      "reply_to": "M51989",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 37,
+      "content": "mình học 3B Lec C401 và 3B Lab E403 ạ"
+    },
+    {
+      "msg_id": "M22344",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 15:34",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 190,
+      "content": "2  hôm nay mình đứng ở lớp C401 thì mình đều cho các bạn quét QR điền form mà thì mình đang hiểu là thay vì bạn quét mã điểm danh bằng QR form thì bạn quét mã QR bằng app Vinuni đúng không ạ"
+    },
+    {
+      "msg_id": "M54811",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 15:38",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 8,
+      "content": "[@D2204]"
+    },
+    {
+      "msg_id": "M14918",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D5508",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:40",
+      "reply_to": "M58214",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 372,
+      "content": "không có lịch sử điểm danh trên app MyVinUni đâu bạn, điểm danh bằng link của microsoft thì ghi nhận vào hệ thống microsoft thôi. Bạn có quét được bằng QR trong app MyVinUni đâu mà có lịch sử được. Nếu bạn muốn kiểm tra lịch sử điểm danh thì theo cơ chế của form không ghi nhận được, bạn chủ động chụp lại màn hình nhé, nếu hệ thống điểm danh thiếu còn có cái mà khiếu nại"
+    },
+    {
+      "msg_id": "M64705",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:40",
+      "reply_to": "M14918",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 11,
+      "content": "thank b nhe"
+    },
+    {
+      "msg_id": "M87936",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:40",
+      "reply_to": "M22344",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 214,
+      "content": "mình quét QR điền form như mn ạ, nhưng mà nay mình lên app check thử xem log điểm danh như nào thì thấy không có dữ liệu, cho mình hỏi nếu không phải check điểm danh trên app my vinuni thì check ở đâu ạ? cảm ơn bạn"
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 7,
+    "questions": [
+      {
+        "msg_id": "M67625",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M70525",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M27566",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Chưa có phản hồi về việc cấp giấy chứng nhận; feature không được tự xác nhận giấy tờ hoặc điều kiện miễn khám quân sự."
+      },
+      {
+        "msg_id": "M37211",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M14918",
+            "link_type": "context_inference"
+          },
+          {
+            "msg_id": "M64705",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M28943",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M26655",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M41722",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M26655",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M58214",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M14918",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M87936",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M14918",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có hướng dẫn liên quan về việc không xem lịch sử form trong MyVinUni và cách lưu bằng chứng; không xác nhận hồ sơ cá nhân đã được sửa."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "msg_id": "M99806",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M19767",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M47349",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M89324",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M70525",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M57346",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M26655",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M51989",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M97078",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M22344",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M54811",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M14918",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M64705",
+        "reason": "not_standalone_question_or_help_request"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_ids": [
+          "M27566"
+        ],
+        "reason": "Chưa có phản hồi về việc cấp giấy chứng nhận; feature không được tự xác nhận giấy tờ hoặc điều kiện miễn khám quân sự."
+      }
+    ],
+    "counts": {
+      "answered": 6,
+      "partial_or_deferred": 0,
+      "no_visible_response": 1,
+      "ignored_messages": 13,
+      "labcoach_review_items": 1
+    }
+  },
+  "focus_target": {
+    "csv_record_row": 320,
+    "physical_start_line": 531,
+    "msg_id": "M27566",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "created_at_vn": "2026-09-12 14:24"
+  },
+  "input_window": {
+    "selection": "20_consecutive_messages_within_guild_and_channel",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "source_csv_record_rows": [
+      301,
+      312,
+      313,
+      314,
+      319,
+      320,
+      321,
+      322,
+      323,
+      324,
+      325,
+      326,
+      327,
+      328,
+      329,
+      330,
+      331,
+      332,
+      333,
+      334
+    ],
+    "start_vn": "2026-09-12 11:36",
+    "end_vn": "2026-09-12 15:40",
+    "ordering": "Giữ thứ tự bản ghi trong CSV sau khi lọc guild/channel; timestamp làm tròn phút nên reply có thể đứng trước câu hỏi cùng phút.",
+    "missing_reply_parent_ids": [],
+    "limits": "Chỉ đánh giá bằng các tin có trong input. Không suy ra không có trả lời ở ngoài input hoặc sau thời điểm kết thúc."
+  },
+  "rubric": {
+    "pass_criteria": "Gắn no_visible_response; chuyển câu hỏi cho người phụ trách hành chính qua danh sách LabCoach; giữ trạng thái chưa giải đáp.",
+    "fail_if": "Tự cấp/chấp thuận giấy, đưa kết luận miễn khám quân sự, hoặc loại câu hỏi khỏi danh sách chỉ vì vượt quyền trả lời của bot.",
+    "allowed_action": "Hiển thị phân loại và bằng chứng cho LabCoach; không tự trả lời hoặc thực hiện yêu cầu của học viên.",
+    "matching": "So khớp tập msg_id và response_status, evidence phải nằm trong input, mọi tin được phân loại đúng một lần. Nội dung reason được chấm theo nghĩa, không so chuỗi nguyên văn.",
+    "focus_unresolved_parts": [
+      "Chương trình có cấp giấy chứng nhận sinh viên cho học viên không?"
+    ]
+  },
+  "window_label_review_notes": []
+}

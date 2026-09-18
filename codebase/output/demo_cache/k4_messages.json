@@ -1,0 +1,133 @@
+{
+  "dataset": "k4_messages.csv",
+  "generated_at": "2026-09-18T12:49:26.244291",
+  "reference_now": "2026-09-14T23:54:00",
+  "decisions": [
+    {
+      "msg_id": "M27566",
+      "still_needs_attention": true,
+      "confidence": 0.95,
+      "rationale": "[General / Duty LabCoach] Student asks if the course provides a student certificate for military service exemption. -- The student asks whether the course provides a student certificate for military service exemption. Looking through the subsequent channel messages, there are discussions about Github, AI logging, demo day, projects, and deadlines, but no reply or answer addressing the student's question about student certificates. Therefore, it still needs attention."
+    },
+    {
+      "msg_id": "M28943",
+      "still_needs_attention": true,
+      "confidence": 0.95,
+      "rationale": "[General / Duty LabCoach] Student asks if they need to email IT to check their attendance records. -- The student asks whether they should email IT to check their attendance records. Scanning the subsequent messages in the channel shows discussions about AI logs, demo days, hardware, and deadlines, but none of the messages address or answer this specific student's question about attendance records. Therefore, it still needs attention."
+    },
+    {
+      "msg_id": "M87936",
+      "still_needs_attention": true,
+      "confidence": 0.95,
+      "rationale": "[General / Duty LabCoach] Student is asking where to check attendance if it does not appear on the My VinUni app after scanning the QR code and filling out the form. -- The student D2204 asked where to check attendance if it is not showing up on the 'my vinuni' app after scanning the QR code and filling out the form. Looking through the subsequent messages in the channel, there is a large amount of discussion on other topics (project setup, git ignore, AI logs, demo rules, internship CVs, etc.), but none of the messages address or answer D2204's question about attendance checking. Therefore, the question still needs attention."
+    },
+    {
+      "msg_id": "M99769",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student is asking about team size (how many members per team). -- The student is asking a question about team size (how many members per team) and tagged another peer. There are no subsequent messages answering the question, so it still needs attention."
+    },
+    {
+      "msg_id": "M30246",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student is asking whether they need to wait for a confirmation email due to the handbook's requirement for a director's signature. -- The student is asking a genuine administrative/policy question about whether they need to wait for a confirmation email because the handbook requires a director's signature. There are no subsequent messages answering this question, so it still needs attention."
+    },
+    {
+      "msg_id": "M83398",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student asks for clarification on what 'đủ chỗ ở đây' means in the context of the course. -- The student is asking a clarification question ('đủ chỗ ở đây hiểu như thế nào [HV] nhỉ ?') regarding course material. There are no subsequent messages in the thread, so the question remains unanswered and still needs LabCoach attention."
+    },
+    {
+      "msg_id": "M67317",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student is asking whether parts 2b and 2a can still be joined together. -- The student is asking a technical/coursework question ('2b vs 2a vẫn join chung được luôn ạ ?') and there are no subsequent messages in the channel answering it."
+    },
+    {
+      "msg_id": "M97637",
+      "still_needs_attention": true,
+      "confidence": 0.95,
+      "rationale": "[General / Duty LabCoach] Student is asking for a comprehensive guide file or link that they remember existing. -- The student is asking if anyone has a file or link that provides complete/full instructions ('tôi nhớ là có 1 file hay link j đó hướng dẫn đầy đủ, bạn có ko?'). This is a genuine request for resources/instructions, and looking through the subsequent messages, no one has replied or provided the file/link to this student. Therefore, it still needs attention from a LabCoach."
+    },
+    {
+      "msg_id": "M48859",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Học viên hỏi về việc có cần đợi mail phản hồi cho việc xác nhận trong sổ tay hay không. -- Học viên đang thắc mắc về quy trình xin xác nhận trong sổ tay có cần đợi mail phản hồi không và chưa có ai trả lời trong thread."
+    },
+    {
+      "msg_id": "M88027",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student asking if Lab 2 submission deadline can be extended because they missed it by 1 minute. -- The student asks if Lab 2 submission time can be extended because they missed the deadline by 1 minute. Looking through the subsequent channel messages, there are general discussions about other labs, project topics, company applications, etc., but no reply or resolution has been provided specifically for this student's request about extending the Lab 2 deadline. Therefore, it still needs LabCoach attention."
+    },
+    {
+      "msg_id": "M12802",
+      "still_needs_attention": false,
+      "confidence": 0.95,
+      "rationale": "[General / Duty LabCoach] Student shares an observation about a temporary OPA health check error that resolves itself after CVAT server completes migration. -- The student is sharing a technical observation/tip regarding a transient OPA health check issue after docker compose up -d in CVAT, rather than asking a direct question requiring assistance."
+    },
+    {
+      "msg_id": "M76498",
+      "still_needs_attention": false,
+      "confidence": 0.9,
+      "rationale": "[General / Duty LabCoach] Student shares the link to the internal student handbook (Sổ tay học viên). -- The student is sharing a link to the student handbook ('Sổ tay học viên') rather than asking a question or requesting help. Therefore, it does not need LabCoach attention."
+    },
+    {
+      "msg_id": "M14882",
+      "still_needs_attention": false,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student posted an emoji without any text or question. -- The student message only contains an animated custom emoji ('dorospin') and does not contain any genuine question or request for help."
+    },
+    {
+      "msg_id": "M91836",
+      "still_needs_attention": false,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Announcement sharing the official topic bank spreadsheet for AI20K Build Phase Cohort 4. -- The student message is an announcement (Thông báo) sharing a Google Sheets link for the AI20K Build Phase Cohort 4 project topics, rather than a question or request for help."
+    },
+    {
+      "msg_id": "M40118",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student is asking if they need to tag the [HV] account regarding vehicle registration. -- The student is asking a logistical question about whether they need to tag a specific account ('[HV]') regarding motorcycle/vehicle registration. There are no subsequent messages answering this question, so it still needs attention."
+    },
+    {
+      "msg_id": "M71241",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student is asking whether a specific GitHub repository is a template. -- The student is asking a question about whether a specific repository is a template, tagging a user (@D3694). There are no subsequent messages answering the question."
+    },
+    {
+      "msg_id": "M21374",
+      "still_needs_attention": true,
+      "confidence": 0.95,
+      "rationale": "[General / Duty LabCoach] Student is asking whether they need to run an installation ('phải install đúng ko?'). -- The student is asking a brief clarifying question ('phải install đúng ko?') which remains completely unanswered as there are no subsequent messages in the thread."
+    },
+    {
+      "msg_id": "M97172",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student is asking whether to type the next block of code in the current window. -- The student is asking a clarifying question about where to type the next code block ('Mình gõ tiếp khối lệnh sau trong cửa sổ đó đúng không bạn?'). There are no subsequent messages in the channel answering this question, so it still needs attention from a LabCoach."
+    },
+    {
+      "msg_id": "M42852",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student is asking for the bot command syntax to perform and report a daily standup. -- The student is asking about the bot command syntax for daily standup and how to report/record daily standups. There are no subsequent messages answering this specific question, so it still needs attention."
+    },
+    {
+      "msg_id": "M02015",
+      "still_needs_attention": true,
+      "confidence": 1.0,
+      "rationale": "[General / Duty LabCoach] Student asked what mentor duty is ('mentor duty là gì?'). -- The student asked '@BOT mentor duty là gì?'. The bot did not reply to this specific question anywhere in the subsequent messages (there are answers about mentor-duty reporting commands, but not defining what 'mentor duty' is). Therefore, it still needs LabCoach attention."
+    },
+    {
+      "msg_id": "M66800",
+      "still_needs_attention": true,
+      "confidence": 0.95,
+      "rationale": "[General / Duty LabCoach] Student is asking about the meaning of the abbreviation '[HV]'. -- The student D3694 is asking a brief/unclear question 'Ý [HV] là sao nhỉ ?' (What does '[HV]' mean?). Looking at subsequent messages, there is no answer or clarification addressing this specific acronym or question. Therefore, it still needs attention from a LabCoach."
+    }
+  ]
+}

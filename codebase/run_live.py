@@ -46,17 +46,48 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from ai_decide.stub import decide
+from ai_decide.stub import Decision, decide
 from data.discord_live import fetch_recent_messages
 from data.loader import load_messages
 from detect.rules import find_unanswered_questions
 from notify.discord_client import send_embeds_to_discord
 from notify.formatter import format_candidate_embed, format_report
 
+load_dotenv()  # must run before any os.environ.get() below, or .env-only values are silently ignored
+
 MIN_HOURS_UNANSWERED = 4.0  # matches detect.rules.find_unanswered_questions's default
 LOOKBACK_SAFETY_MARGIN_HOURS = 2.0  # covers a slow/delayed cron run without missing a candidate
+MAX_CONTEXT_HOURS = MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS  # bounds the LLM context window
+LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "gemini")  # only GEMINI_API_KEY is configured in .env
+# No model_name is passed to decide() -- ai_decide/llm_factory.py already
+# resolves the right one per provider (OPENAI_MODEL/GEMINI_MODEL/ANTHROPIC_MODEL,
+# see .env.example). Passing one here would hardcode a Gemini-shaped model
+# name that breaks if LLM_PROVIDER is ever switched to openai/anthropic.
+MAX_AI_REVIEW_PER_CALL = 5  # stay well under the free tier's per-minute quota
 LIVE_SEEN_IDS_PATH = Path("output/.live_seen_ids.json")
 CSV_TEST_SEEN_IDS_PATH = Path("output/.live_seen_ids.csv_test.json")
+
+
+def _decide_with_ai_cap(candidates: list, all_messages: list) -> list[Decision]:
+    """AI-reviews at most MAX_AI_REVIEW_PER_CALL candidates (oldest-waiting
+    first, matching find_unanswered_questions's own sort order) -- the rest
+    stay rule-based-only, defaulting to NOT flagged. detect/rules.py now
+    only excludes bot messages, so the cap-overflow set is most of every
+    message, not a small handful of genuine candidates -- defaulting it to
+    "needs attention" would flood Discord instead of covering a rare edge
+    case."""
+    ai_batch, rule_based_only = candidates[:MAX_AI_REVIEW_PER_CALL], candidates[MAX_AI_REVIEW_PER_CALL:]
+    decisions = decide(ai_batch, all_messages=all_messages, provider=LLM_PROVIDER) if ai_batch else []
+    decisions += [
+        Decision(
+            candidate=c,
+            still_needs_attention=False,
+            confidence=None,
+            rationale="[Rule-based only] Not yet AI-reviewed -- over the per-call AI review cap",
+        )
+        for c in rule_based_only
+    ]
+    return decisions
 
 
 def _load_seen_ids(path: Path) -> set[str]:
@@ -71,8 +102,6 @@ def _save_seen_ids(path: Path, seen_ids: set[str]) -> None:
 
 
 def main() -> None:
-    load_dotenv()
-
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--csv", type=str, default=None, help="Source messages from this CSV pack instead of live Discord (no bot credentials needed)")
     parser.add_argument("--now", type=str, default=None, help="Reference time as 'YYYY-MM-DD HH:MM', --csv mode only (default: latest timestamp in the CSV)")
@@ -117,18 +146,28 @@ def main() -> None:
         print("No new candidates this run")
         return
 
-    decisions = decide(new_candidates)
+    # Bounded context pool -- graph.py's context-gathering has no upper time
+    # bound, so an unbounded `messages` (e.g. the full CSV pack) could dump
+    # hundreds of "subsequent messages" into one LLM prompt.
+    context_pool = [m for m in messages if now - timedelta(hours=MAX_CONTEXT_HOURS) <= m.created_at <= now]
+    decisions = _decide_with_ai_cap(new_candidates, context_pool)
     report = format_report(decisions)
     header = f"=== Live run {now:%Y-%m-%d %H:%M} -- {len(new_candidates)} new ==="
     print(f"{header}\n{report}")
 
-    if webhook_url:
-        embeds = [format_candidate_embed(d, MIN_HOURS_UNANSWERED, now) for d in decisions]
+    # AI classification can clear a rule-based candidate (already answered
+    # per context) -- only still-open ones get posted, matching
+    # format_report's own filtering, which the embed path didn't previously apply.
+    still_open = [d for d in decisions if d.still_needs_attention]
+    if webhook_url and still_open:
+        embeds = [format_candidate_embed(d, MIN_HOURS_UNANSWERED, now) for d in still_open]
         try:
             send_embeds_to_discord(embeds, webhook_url, content=header)
         except RuntimeError as exc:
             sys.exit(f"Failed to post to Discord: {exc}")
         print("\nPosted new candidates to Discord")
+    elif webhook_url:
+        print("\nAI review cleared all new candidates -- nothing posted to Discord")
 
 
 if __name__ == "__main__":

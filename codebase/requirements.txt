@@ -9,8 +9,13 @@ python-dotenv>=1.2,<2.0
 # REST fetch stays plain urllib, unchanged.
 discord.py>=2.4,<3.0
 
-# --- CP3, added early so everyone's environment installs cleanly from hour one;
-#     not imported/called anywhere yet ---
+# --- CP3 LangGraph decision engine, used now. LLM_PROVIDER (.env) picks
+#     which of these three ai_decide/llm_factory.py actually calls -- all
+#     three are installed so switching providers on any machine (just by
+#     changing .env) works without also needing a new pip install. ---
 langgraph>=0.2,<0.3
 langchain-core>=0.3,<0.4
 google-genai
+langchain-google-genai
+langchain-openai
+langchain-anthropic
