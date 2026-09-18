@@ -1,0 +1,519 @@
+{
+  "case_id": "K4-07",
+  "description": "Đã có hướng dẫn điểm danh trong hội thoại dù không reply trực tiếp",
+  "taxonomy": [
+    "dac_thu_domain",
+    "mo_ho"
+  ],
+  "taxonomy_reason": "Phải nối ngữ cảnh form điểm danh và MyVinUni; M14918/M44966 trả lời cách lưu, kiểm tra bản ghi. Không suy ra hồ sơ điểm danh cá nhân đã được sửa.",
+  "sheet_response_column": "Có reponse",
+  "based_on_data": true,
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "ngu_canh",
+    "nguoi_phan_hoi": "nguoi",
+    "cau_truc_yeu_cau": "hoi_tiep",
+    "loai_yeu_cau": "huong_dan"
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  },
+  "input": [
+    {
+      "msg_id": "M97078",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:32",
+      "reply_to": "M51989",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 37,
+      "content": "mình học 3B Lec C401 và 3B Lab E403 ạ"
+    },
+    {
+      "msg_id": "M22344",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 15:34",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 190,
+      "content": "2  hôm nay mình đứng ở lớp C401 thì mình đều cho các bạn quét QR điền form mà thì mình đang hiểu là thay vì bạn quét mã điểm danh bằng QR form thì bạn quét mã QR bằng app Vinuni đúng không ạ"
+    },
+    {
+      "msg_id": "M54811",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 15:38",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 8,
+      "content": "[@D2204]"
+    },
+    {
+      "msg_id": "M14918",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D5508",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:40",
+      "reply_to": "M58214",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 372,
+      "content": "không có lịch sử điểm danh trên app MyVinUni đâu bạn, điểm danh bằng link của microsoft thì ghi nhận vào hệ thống microsoft thôi. Bạn có quét được bằng QR trong app MyVinUni đâu mà có lịch sử được. Nếu bạn muốn kiểm tra lịch sử điểm danh thì theo cơ chế của form không ghi nhận được, bạn chủ động chụp lại màn hình nhé, nếu hệ thống điểm danh thiếu còn có cái mà khiếu nại"
+    },
+    {
+      "msg_id": "M64705",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:40",
+      "reply_to": "M14918",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 11,
+      "content": "thank b nhe"
+    },
+    {
+      "msg_id": "M87936",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2204",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:40",
+      "reply_to": "M22344",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 214,
+      "content": "mình quét QR điền form như mn ạ, nhưng mà nay mình lên app check thử xem log điểm danh như nào thì thấy không có dữ liệu, cho mình hỏi nếu không phải check điểm danh trên app my vinuni thì check ở đâu ạ? cảm ơn bạn"
+    },
+    {
+      "msg_id": "M47007",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 15:43",
+      "reply_to": "M64705",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 199,
+      "content": "nếu  bạn có đầy đủ bằng chứng nhưng hôm bạn tham gia đầy đủ trên lớp thì mình có thể mail về cho bên IT đến bên đó có thể hỗ trợ điểm danh cho bạn nhé ( như bạn Lab Coach [HV] đã giải đáp ở trên nhé)"
+    },
+    {
+      "msg_id": "M74482",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1719",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 19:02",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 139,
+      "content": "[@D8434] chiều nay em có điểm danh ở lớp 3a-lec-d401, nhưng mà em điền nhầm thành buổi sáng thay vì buổi chiều, em cần phải xử lý như nào ạ"
+    },
+    {
+      "msg_id": "M20199",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1719",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 19:04",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 152,
+      "content": "với cả em muốn góp ý 1 chút là trên hệ thống hãy cho sinh viên biết được là hôm đó họ đi (hiện tích xanh) hay nghỉ(hiện tích đỏ) để dễ quan sát được k ạ"
+    },
+    {
+      "msg_id": "M55295",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 19:06",
+      "reply_to": "M74482",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 138,
+      "content": "cái này nếu mà em điểm danh nhầm thì em có thể gửi lại form theo đúng buổi hôm nay và báo lại cho các lại về cho bên IT để họ xác nhận lại"
+    },
+    {
+      "msg_id": "M06292",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8434",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 19:10",
+      "reply_to": "M20199",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 242,
+      "content": "hiện tại thời gian đầu thì BTC đang cho các bạn điểm danh bằng QR form để BTC đồng bộ tài khoản Vinuni của các bạn với hệ thống app của trường nên các bạn sẽ được điểm danh bằng app sớm thôi nhé và lúc đó các bạn sẽ check dc lịch sử điểm danh"
+    },
+    {
+      "msg_id": "M44966",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D5508",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 19:44",
+      "reply_to": "M74482",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 366,
+      "content": "Link điểm danh hiện tại sau khi điền sẽ hiện button lưu câu trả lời đó bạn, bạn muốn tự check thì mỗi lần điền điểm danh bạn lưu lại nhé. Nếu chẳng may điền sai thì bạn có thể sửa câu trả lời. Nếu bạn ko chọn lưu thì ko sửa được, và bạn cũng sẽ ko check được bạn đã điểm danh những buổi nào. Trước khi chờ hệ thống hoàn thiện thì nên chủ động để ko mất quyền lợi nha"
+    },
+    {
+      "msg_id": "M06541",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8554",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 20:10",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 17,
+      "content": "Chao` moi nguoi 🙌"
+    },
+    {
+      "msg_id": "M04107",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2018",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 20:11",
+      "reply_to": "M06541",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 12,
+      "content": "chao` anh ^^"
+    },
+    {
+      "msg_id": "M79982",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7108",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 20:33",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 95,
+      "content": "liên lạc với anh [HV] điều phối viên như nào nhỉ mng, em có email nhưng chưa nhận được phản hồi"
+    },
+    {
+      "msg_id": "M17602",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7936",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 20:41",
+      "reply_to": "M06541",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 17,
+      "content": "Chào anh đẹp giai"
+    },
+    {
+      "msg_id": "M73790",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1719",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 21:10",
+      "reply_to": "M44966",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 46,
+      "content": "Hình như k sửa dc hay sao ý ạ, em thử k sửa dc"
+    },
+    {
+      "msg_id": "M23639",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6014",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 22:25",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 80,
+      "content": "các anh chị Lab Coach ơi, em muốn xin slide nay thầy dạy ở 3a-lec-d301 được ko ạ"
+    },
+    {
+      "msg_id": "M70960",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7593",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 22:28",
+      "reply_to": "M79982",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 57,
+      "content": "[HV] có thể ping trực tiếp anh [HV] trong discord này nhé"
+    },
+    {
+      "msg_id": "M94913",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7593",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 22:29",
+      "reply_to": "M23639",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 150,
+      "content": "theo quy định của chương trình thì hạn chế tải tài liệu và lưu truyền ra bên ngoài á, [HV] có thể dùng trực tiếp trên VLearn nhé (mình team VLearn 🤡 )"
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 6,
+    "questions": [
+      {
+        "msg_id": "M87936",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M14918",
+            "link_type": "context_inference"
+          },
+          {
+            "msg_id": "M47007",
+            "link_type": "context_inference"
+          },
+          {
+            "msg_id": "M44966",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có hướng dẫn liên quan về việc không xem lịch sử form trong MyVinUni và cách lưu bằng chứng; không xác nhận hồ sơ cá nhân đã được sửa."
+      },
+      {
+        "msg_id": "M74482",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M55295",
+            "link_type": "direct_reply"
+          },
+          {
+            "msg_id": "M44966",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M20199",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M06292",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M79982",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M70960",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M73790",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Báo hướng dẫn sửa form không thực hiện được; chưa có phản hồi tiếp theo cho lỗi mới này."
+      },
+      {
+        "msg_id": "M23639",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M94913",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "msg_id": "M97078",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M22344",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M54811",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M14918",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M64705",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M47007",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M55295",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M06292",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M44966",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M06541",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M04107",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M17602",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M70960",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M94913",
+        "reason": "not_standalone_question_or_help_request"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_ids": [
+          "M73790"
+        ],
+        "reason": "Báo hướng dẫn sửa form không thực hiện được; chưa có phản hồi tiếp theo cho lỗi mới này."
+      }
+    ],
+    "counts": {
+      "answered": 5,
+      "partial_or_deferred": 0,
+      "no_visible_response": 1,
+      "ignored_messages": 14,
+      "labcoach_review_items": 1
+    }
+  },
+  "focus_target": {
+    "csv_record_row": 334,
+    "physical_start_line": 545,
+    "msg_id": "M87936",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "created_at_vn": "2026-09-12 15:40"
+  },
+  "input_window": {
+    "selection": "20_consecutive_messages_within_guild_and_channel",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "source_csv_record_rows": [
+      329,
+      330,
+      331,
+      332,
+      333,
+      334,
+      335,
+      373,
+      374,
+      375,
+      376,
+      377,
+      378,
+      379,
+      380,
+      381,
+      390,
+      397,
+      400,
+      404
+    ],
+    "start_vn": "2026-09-12 15:32",
+    "end_vn": "2026-09-12 22:29",
+    "ordering": "Giữ thứ tự bản ghi trong CSV sau khi lọc guild/channel; timestamp làm tròn phút nên reply có thể đứng trước câu hỏi cùng phút.",
+    "missing_reply_parent_ids": [
+      "M51989",
+      "M58214"
+    ],
+    "limits": "Chỉ đánh giá bằng các tin có trong input. Không suy ra không có trả lời ở ngoài input hoặc sau thời điểm kết thúc."
+  },
+  "rubric": {
+    "pass_criteria": "Gắn answered về yêu cầu hướng dẫn; dẫn bằng chứng ngữ cảnh; không nhắc như câu chưa được giải đáp.",
+    "fail_if": "Báo no_visible_response vì không có reply_to trỏ vào M87936, hoặc khẳng định dữ liệu điểm danh cá nhân đã được sửa.",
+    "allowed_action": "Hiển thị phân loại và bằng chứng cho LabCoach; không tự trả lời hoặc thực hiện yêu cầu của học viên.",
+    "matching": "So khớp tập msg_id và response_status, evidence phải nằm trong input, mọi tin được phân loại đúng một lần. Nội dung reason được chấm theo nghĩa, không so chuỗi nguyên văn.",
+    "focus_unresolved_parts": []
+  },
+  "window_label_review_notes": []
+}

@@ -1,0 +1,556 @@
+{
+  "case_id": "K4-06",
+  "description": "Phản hồi trì hoãn không có reply_to",
+  "taxonomy": [
+    "mo_ho"
+  ],
+  "taxonomy_reason": "M18313 đến sau trong cùng cuộc trao đổi; liên hệ với câu hỏi dựa trên ngữ cảnh, không có liên kết reply trực tiếp.",
+  "sheet_response_column": "Partial reponse by user",
+  "based_on_data": true,
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "ngu_canh",
+    "nguoi_phan_hoi": "nguoi",
+    "cau_truc_yeu_cau": "hoi_tiep",
+    "loai_yeu_cau": "thong_tin"
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  },
+  "input": [
+    {
+      "msg_id": "M90367",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 20:51",
+      "reply_to": "M89749",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 58,
+      "content": "Có rồi nhưng mình chủ động thêm cả folder thì yên tâm hơn."
+    },
+    {
+      "msg_id": "M36677",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 20:55",
+      "reply_to": "M90367",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 324,
+      "content": "Tại vì một số coding agent/dòng máy không hỗ trợ, nhiều lúc phải bảo agent sửa thủ công script đẩy logs, gây ra tình trạng files log được tạo ra khác với quy định có sẵn, khiến nhiều lúc có tình trạng mất logs trong thư mục. Nên bạn nào không thấy logs đẩy, có bảo agent sửa này sửa kia thì cứ ignore cả thư mục cho an toàn."
+    },
+    {
+      "msg_id": "M90393",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1138",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 20:57",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 241,
+      "content": "em muốn hỏi lại chút là các đội khi demo sẽ có 5p vừa trình bày vừa QnA hay chỉ trình bày thôi vậy ạ, và quá trình lọc để chọn top vào demo day offline là có sự tham gia vote của học vien hay toàn bộ việc chọn đánh giá đều do BTC thực hiện ạ"
+    },
+    {
+      "msg_id": "M34524",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 20:59",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 9,
+      "content": "[:emoji:]"
+    },
+    {
+      "msg_id": "M46984",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 20:59",
+      "reply_to": "M90393",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 221,
+      "content": "Quy định demo mình không biết có thay đổi chưa, nhưng quá trình chọn top để demo offline là do BTC thực hiện hoàn toàn nha. Tất nhiên các bạn học viên vẫn có đặc quyền bình chọn ở một giai đoạn khác, cứ hóng là biết nhaa."
+    },
+    {
+      "msg_id": "M54679",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1138",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:00",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 45,
+      "content": "về thời gian demo + QnA thì sao vậy anh nhỉ ?"
+    },
+    {
+      "msg_id": "M18313",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:03",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 52,
+      "content": "*Để thời gian trả lời~*\nCái gì bất ngờ sẽ thú zị hơn"
+    },
+    {
+      "msg_id": "M55373",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:03",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 9,
+      "content": "[:emoji:]"
+    },
+    {
+      "msg_id": "M22848",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D4013",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:37",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 183,
+      "content": "Các anh chị lab coach cho em hỏi một số đề tài về xử lý ảnh/video từ camera thì sản phẩm có cần phải có thiết bị phần cứng camera không hay chỉ cần tải ảnh/video lên app xử lý thôi ạ."
+    },
+    {
+      "msg_id": "M33335",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6509",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:40",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 358,
+      "content": "Mọi người cho em hỏi một chút ạ:\nPhần dataset là do BTC cung cấp hay chúng em sẽ tự tìm ạ em có đọc thấy là có thể sử dụng cả dữ liệu mô phỏng nên không nắm được phần này mình có yêu cầu cụ thể nào không ạ?\nVới một số phần liên quan đến phần cứng như chuông, robot,... thì BTC có hỗ trợ thiết bị/phần cứng hay chúng em sẽ tự chuẩn bị ạ\nEm cảm ơn mọi người ạ!"
+    },
+    {
+      "msg_id": "M76256",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:41",
+      "reply_to": "M33335",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 116,
+      "content": "Như thông tin trước đó có chia sẻ trong buổi ws thì BTC không cung cấp data, thiết bị,.... nhé, team phải tự chủ nha"
+    },
+    {
+      "msg_id": "M03224",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:42",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 162,
+      "content": "Cho nên cân nhắc phù hợp với khả năng của team mà chọn đề tài nhé, time vẫn còn dài nên không vội, suy nghĩ kĩ, phân tích khảo sát đánh giá ròi hãy đăng kí đề tài"
+    },
+    {
+      "msg_id": "M57008",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 22:00",
+      "reply_to": "M22848",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 70,
+      "content": "Làm cách nào cũng được nha, miễn ra kết quả tốt nhất là được [:emoji:]"
+    },
+    {
+      "msg_id": "M80040",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 22:01",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 112,
+      "content": "Cái gì khó quá thì mình phải cố, cố không được thì mình bỏ qua. Còn cái gì trong khả năng thì phải làm bằng hết."
+    },
+    {
+      "msg_id": "M84299",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 22:01",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 54,
+      "content": "Đừng cố quá để rồi quá cố, nhớ lời các cụ dạy là được."
+    },
+    {
+      "msg_id": "M38917",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2938",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 22:06",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 31,
+      "content": "em tưởng hạn 12h trưa mai chứ ạ"
+    },
+    {
+      "msg_id": "M81526",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 22:07",
+      "reply_to": "M38917",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 173,
+      "content": "Bot vẫn trong quá trình phát triển nha, thời gian mặc định sẽ là 12 giờ đêm cùng ngày. Thời gian thực tế các bạn follow up theo hướng dẫn thực tế của Lab Coach trên lớp nhé."
+    },
+    {
+      "msg_id": "M65865",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1138",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 22:08",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 219,
+      "content": "em muốn hỏi về doanh nghiệp sau này bản thân aim, có phải đề tài thuộc doanh nghiệp đó thì khả năng được cử đi thực tập tại đó sẽ cao hơn ko ạ, và tiêu chí để được apply vào doanh nghiệp đó phụ thuộc vào các yếu tố gì ạ"
+    },
+    {
+      "msg_id": "M46898",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8976",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 22:10",
+      "reply_to": "M65865",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 178,
+      "content": "Dựa vào nhiều yếu tố lắm nha, project chỉ là một phần rất nhỏ thôi. Còn tiêu chí đánh giá thì không có thông tin và công tiết lộ được nè. Bạn chỉ cần cố gắng hết sức là được nha."
+    },
+    {
+      "msg_id": "M44168",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D1138",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 22:11",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 176,
+      "content": "em hỏi thêm là khi apply vào doanh nghiệp hoặc được phân phôi vào doanh nghiệp sẽ dựa trên CV, bản CV này là từ đầu khóa nộp lên hệ thống hay đến khi đó sẽ viết lại 1 CV khác ạ"
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 7,
+    "questions": [
+      {
+        "msg_id": "M90393",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M46984",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Đã trả lời BTC chọn top; chưa trả lời 5 phút demo có bao gồm QnA không."
+      },
+      {
+        "msg_id": "M54679",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M18313",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "M18313 là lời trì hoãn được suy từ ngữ cảnh, không có reply_to và không đưa ra thời gian demo/QnA."
+      },
+      {
+        "msg_id": "M22848",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M57008",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M33335",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M76256",
+            "link_type": "direct_reply"
+          },
+          {
+            "msg_id": "M03224",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Đã nói nhóm tự chuẩn bị dữ liệu và thiết bị, nhưng chưa nêu yêu cầu cụ thể đối với dataset/dữ liệu mô phỏng được hỏi trong tin."
+      },
+      {
+        "msg_id": "M38917",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M81526",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Phản hồi giải thích giờ mặc định của bot và yêu cầu theo LabCoach; chưa xác nhận thời hạn thực tế mà người hỏi cần biết."
+      },
+      {
+        "msg_id": "M65865",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M46898",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Trả lời chung project là một phần; không cung cấp tiêu chí thực tập hoặc xác nhận quan hệ với doanh nghiệp đề tài."
+      },
+      {
+        "msg_id": "M44168",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Câu hỏi ở cuối cửa sổ chưa có phản hồi trong input; không sử dụng trả lời ngoài cửa sổ."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "msg_id": "M90367",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M36677",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M34524",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M46984",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M18313",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M55373",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M76256",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M03224",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M57008",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M80040",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M84299",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M81526",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M46898",
+        "reason": "not_standalone_question_or_help_request"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_ids": [
+          "M90393",
+          "M54679"
+        ],
+        "reason": "Cùng người hỏi lại phần chưa được giải đáp; gom một mục nhắc và giữ cả hai mã nguồn."
+      },
+      {
+        "message_ids": [
+          "M33335"
+        ],
+        "reason": "Đã nói nhóm tự chuẩn bị dữ liệu và thiết bị, nhưng chưa nêu yêu cầu cụ thể đối với dataset/dữ liệu mô phỏng được hỏi trong tin."
+      },
+      {
+        "message_ids": [
+          "M38917"
+        ],
+        "reason": "Phản hồi giải thích giờ mặc định của bot và yêu cầu theo LabCoach; chưa xác nhận thời hạn thực tế mà người hỏi cần biết."
+      },
+      {
+        "message_ids": [
+          "M65865"
+        ],
+        "reason": "Trả lời chung project là một phần; không cung cấp tiêu chí thực tập hoặc xác nhận quan hệ với doanh nghiệp đề tài."
+      },
+      {
+        "message_ids": [
+          "M44168"
+        ],
+        "reason": "Câu hỏi ở cuối cửa sổ chưa có phản hồi trong input; không sử dụng trả lời ngoài cửa sổ."
+      }
+    ],
+    "counts": {
+      "answered": 1,
+      "partial_or_deferred": 5,
+      "no_visible_response": 1,
+      "ignored_messages": 13,
+      "labcoach_review_items": 5
+    }
+  },
+  "focus_target": {
+    "csv_record_row": 1026,
+    "physical_start_line": 2950,
+    "msg_id": "M54679",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "created_at_vn": "2026-09-14 21:00"
+  },
+  "input_window": {
+    "selection": "20_consecutive_messages_within_guild_and_channel",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "source_csv_record_rows": [
+      1019,
+      1020,
+      1021,
+      1022,
+      1023,
+      1026,
+      1029,
+      1030,
+      1035,
+      1039,
+      1041,
+      1042,
+      1048,
+      1049,
+      1050,
+      1052,
+      1053,
+      1055,
+      1059,
+      1060
+    ],
+    "start_vn": "2026-09-14 20:51",
+    "end_vn": "2026-09-14 22:11",
+    "ordering": "Giữ thứ tự bản ghi trong CSV sau khi lọc guild/channel; timestamp làm tròn phút nên reply có thể đứng trước câu hỏi cùng phút.",
+    "missing_reply_parent_ids": [
+      "M89749"
+    ],
+    "limits": "Chỉ đánh giá bằng các tin có trong input. Không suy ra không có trả lời ở ngoài input hoặc sau thời điểm kết thúc."
+  },
+  "rubric": {
+    "pass_criteria": "Gắn partial_or_deferred theo bản review; nêu M18313 là phản hồi trì hoãn được suy từ ngữ cảnh; không coi là đáp án cụ thể.",
+    "fail_if": "Khẳng định không hề có phản hồi chỉ vì thiếu reply_to, hoặc hiểu câu đùa là đã trả lời thời gian demo.",
+    "allowed_action": "Hiển thị phân loại và bằng chứng cho LabCoach; không tự trả lời hoặc thực hiện yêu cầu của học viên.",
+    "matching": "So khớp tập msg_id và response_status, evidence phải nằm trong input, mọi tin được phân loại đúng một lần. Nội dung reason được chấm theo nghĩa, không so chuỗi nguyên văn.",
+    "focus_unresolved_parts": [
+      "Thời gian demo và QnA cụ thể."
+    ]
+  },
+  "window_label_review_notes": [
+    {
+      "msg_id": "M33335",
+      "window_label": "partial_or_deferred",
+      "reason": "Đã nói nhóm tự chuẩn bị dữ liệu và thiết bị, nhưng chưa nêu yêu cầu cụ thể đối với dataset/dữ liệu mô phỏng được hỏi trong tin."
+    },
+    {
+      "msg_id": "M38917",
+      "window_label": "partial_or_deferred",
+      "reason": "Phản hồi giải thích giờ mặc định của bot và yêu cầu theo LabCoach; chưa xác nhận thời hạn thực tế mà người hỏi cần biết."
+    }
+  ]
+}

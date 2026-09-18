@@ -1,4 +1,4 @@
-"""Data schemas for LangGraph State and LLM Structured Output.
+"""Data schemas for LangGraph State, LLM Structured Output, and Eval Benchmark JSON.
 """
 
 from __future__ import annotations
@@ -43,3 +43,58 @@ class GraphState(TypedDict, total=False):
     raw_response: str
     analysis: Optional[CandidateAnalysisOutput]
     decision: Optional[Any]
+
+
+class EvalMessageClassification(BaseModel):
+    """Structured NLU output returned by AI model when classifying each message in a benchmark batch."""
+    is_standalone_question: bool = Field(
+        description="True if the message is a genuine standalone question or help request from a student. False if it is an announcement, status update, thank-you closing message, or non-question reply."
+    )
+    response_status: str = Field(
+        default="no_visible_response",
+        description="Status of response: 'answered' (satisfactorily answered by reply/peer/coach), 'partial_or_deferred' (answered incorrectly, partially, or deferred), or 'no_visible_response' (unanswered/no reply)."
+    )
+    responder: str = Field(
+        default="none",
+        description="Who provided the answer: 'user' (student/peer/labcoach user), 'labcoach' (bot/labcoach), or 'none' (if unanswered)."
+    )
+    needs_labcoach_review: bool = Field(
+        default=True,
+        description="True if the question is unanswered, partially answered, or needs LabCoach review. False if satisfactorily answered."
+    )
+    rationale: str = Field(
+        default="",
+        description="Short natural language explanation of the classification."
+    )
+
+
+
+# --- SCHEMAS FOR EVAL BENCHMARK OUTPUT (matching eval/K4-H11.json expected_output) ---
+
+class QuestionEvalItem(BaseModel):
+    input_index: int
+    msg_id: str
+    guild: str
+    channel: str
+    created_at_vn: str
+    is_question: bool = True
+    label: str  # "answered" | "no_visible_response" | "partial_or_deferred"
+    response_status: str  # "answered" | "no_visible_response" | "partial_or_deferred"
+    responder: str  # "user" | "labcoach" | "none"
+    needs_labcoach_review: bool
+
+
+class EvalCounts(BaseModel):
+    answered: int = 0
+    partial_or_deferred: int = 0
+    no_visible_response: int = 0
+    ignored_messages: int = 0
+
+
+class EvalBenchmarkOutputSchema(BaseModel):
+    scope: str = "input_only"
+    message_count: int
+    question_count: int
+    questions: list[QuestionEvalItem]
+    data_quality_flags: list[str] = Field(default_factory=list)
+    counts: EvalCounts

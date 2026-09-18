@@ -62,7 +62,7 @@ def guardrail_node(state: GraphState) -> dict[str, Any]:
     return {"raw_prompt": raw_prompt}
 
 
-def classify_node(state: GraphState, provider: str = "openai", model_name: str | None = None) -> dict[str, Any]:
+def classify_node(state: GraphState, provider: str = "gemini", model_name: str | None = None) -> dict[str, Any]:
     raw_prompt = state["raw_prompt"]
     candidate = state["candidate"]
 
@@ -172,7 +172,7 @@ def decision_node(state: GraphState) -> dict[str, Any]:
     return {"decision": decision}
 
 
-def create_ai_decision_graph(provider: str = "openai", model_name: str | None = None):
+def create_ai_decision_graph(provider: str = "gemini", model_name: str | None = None):
     workflow = StateGraph(GraphState)
 
     workflow.add_node("guardrail", guardrail_node)
