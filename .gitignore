@@ -1,7 +1,13 @@
 # Course data pack — do not commit (README: Bảo mật dữ liệu, điều 2–3)
 # Repo nộp bài chỉ được trích ngắn + dẫn mã (T##### / D#### / [Txx-NNN]), không đẩy nguyên pack.
 data/
-
+.serena/
+# Log LLM judge chứa nguyên văn content của tin nhắn thật (không truncate) —
+# vi phạm luật "chỉ trích dẫn ngắn" nếu đẩy public. eval/golden_set.csv giữ lại
+# (chỉ trích đoạn ngắn + dẫn msg_id) nhưng CẦN NGƯỜI KIỂM TRA độ dài trích dẫn
+# trước khi commit — xem PROJECT_CONTEXT_LOG.md mục bước 3.2.
+codebase/eval/llm_judgments.jsonl
+codebase/eval/_candidates_dump.txt
 # API keys & secrets (02-guide.md §3.4)
 .env
 .env.*
@@ -20,3 +26,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 *.log
+PROJECT_CONTEXT_LOG.md
+codebase/
+*/.env
