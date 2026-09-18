@@ -39,9 +39,13 @@ class LLMFactory:
             
             selected_model = model_name or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
             api_key = os.getenv("OPENAI_API_KEY")
+            if selected_model.startswith("gpt-5"):
+                # Reasoning requests do not support temperature sampling.
+                kwargs.setdefault("reasoning_effort", os.getenv("OPENAI_REASONING_EFFORT", "medium"))
+            else:
+                kwargs["temperature"] = temperature
             return ChatOpenAI(
                 model=selected_model,
-                temperature=temperature,
                 api_key=api_key if api_key else "mock-key",
                 **kwargs,
             )
@@ -56,7 +60,6 @@ class LLMFactory:
             
             selected_model = model_name or os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
             api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
-            print("api key", api_key)
             return ChatGoogleGenerativeAI(
                 model=selected_model,
                 temperature=temperature,

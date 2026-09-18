@@ -1,0 +1,573 @@
+{
+  "case_id": "K4-03",
+  "description": "Bot trả lời dài nhưng không có hạn nộp cụ thể",
+  "taxonomy": [
+    "nguon_su_that",
+    "dac_thu_domain"
+  ],
+  "taxonomy_reason": "M81171 thừa nhận không biết ngày giờ; chỉ dẫn nơi kiểm tra không phải đáp án deadline. Đoán hạn nộp có thể khiến học viên nộp muộn.",
+  "sheet_response_column": "Partial reponse by bot",
+  "based_on_data": true,
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "truc_tiep",
+    "nguoi_phan_hoi": "bot",
+    "cau_truc_yeu_cau": "mot_yeu_cau",
+    "loai_yeu_cau": "thong_tin"
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  },
+  "input": [
+    {
+      "msg_id": "M57683",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 20:23",
+      "reply_to": "M83132",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 179,
+      "content": "Bạn muốn xem điểm cộng liên quan đến hoạt động nào trên lớp ạ?\n\n1. Điểm cộng XP\n2. Điểm cộng trong các hoạt động onboarding\n3. Điểm cộng khác\n\nHoặc bạn mô tả rõ hơn giúp mình nhé!"
+    },
+    {
+      "msg_id": "M83132",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D9585",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 20:23",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 35,
+      "content": "[@BOT] điểm cộng trên lớp xem ở đâu"
+    },
+    {
+      "msg_id": "M24797",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 20:24",
+      "reply_to": "M69776",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 480,
+      "content": "Về điểm cộng trong các hoạt động onboarding (offline) trên lớp, loại điểm này **tách biệt hoàn toàn** với XP (điểm Build online) nha bạn.\n\nThông thường, danh sách điểm này sẽ được các anh chị Mentor hoặc Ban tổ chức cập nhật và thông báo trực tiếp tại lớp hoặc qua các kênh thông báo chung của khóa học.\n\nĐể biết chính xác vị trí xem điểm hiện tại, bạn có thể:\n*   Nhắn tin hỏi trực tiếp các anh chị **Mod**.\n*   Hoặc mở một **Ticket** hỗ trợ để được các anh chị check giúp nhé! ✨"
+    },
+    {
+      "msg_id": "M69776",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D9585",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 20:24",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 8,
+      "content": "[@BOT] 2"
+    },
+    {
+      "msg_id": "M78600",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D9585",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 20:24",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 1,
+      "content": "2"
+    },
+    {
+      "msg_id": "M89624",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D4567",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 20:59",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 42,
+      "content": "[@BOT]. hạn nộp bài L3-L4 - Khóa 4 Phase 1"
+    },
+    {
+      "msg_id": "M54287",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D6509",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:00",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 96,
+      "content": "[@BOT] Sinh viên tham gia AI thực chiến được sử dụng cơ sở vật chất nào của trường, ngoài trừ gì"
+    },
+    {
+      "msg_id": "M81171",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:00",
+      "reply_to": "M89624",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 860,
+      "content": "Chào bạn nè! Về hạn nộp bài tập **L3-L4** của **Khóa 4 - Phase 1**, hiện tại mình không có thông tin ngày giờ cụ thể trong dữ liệu trực tiếp của mình.\n\nĐể không bị lỡ deadline và có thông tin chính xác nhất, bạn hãy kiểm tra nhanh tại 2 nơi này nhé:\n\n1.  **Kênh `#thông-báo-chung`** (nằm trong mục **LỚP HỌC - KHOÁ 4**): Đây là nơi các giảng viên và trợ giảng (TA) cập nhật slide bài giảng, link lab và các lời nhắc quan trọng về thời hạn nộp bài.\n2.  **Nền tảng [vlearn.dev](https://vlearn.dev)**: Bạn đăng nhập vào tài khoản học viên của mình, chọn đúng khóa học để xem chi tiết yêu cầu bài tập và thời gian đóng cổng nộp bài nha.\n\nNếu bạn đã kiểm tra cả hai nơi mà vẫn chưa rõ, hãy nhắn tin hỏi trực tiếp các bạn **Trợ giảng (TA)** trong lớp hoặc tag **@Vlearn Admin** để được hỗ trợ nhanh nhất nhé!\n\nChúc bạn hoàn thành bài tập thật tốt và đúng hạn nha! 💪✨"
+    },
+    {
+      "msg_id": "M21653",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:01",
+      "reply_to": "M54287",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 100,
+      "content": "[@role]\n\nCâu này mình chưa đủ thông tin để trả lời chuẩn, mình xin phép nhờ Mod hỗ trợ bạn ngay nha!"
+    },
+    {
+      "msg_id": "M78882",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D1770",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:18",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 60,
+      "content": "[@BOT] khóa học lv3-lv4 khóa 4 có những track chuyên sâu nào"
+    },
+    {
+      "msg_id": "M91098",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:18",
+      "reply_to": "M78882",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 461,
+      "content": "Chào bạn! Hiện tại Khóa 4 đang tập trung hoạt động trong danh mục **LỚP HỌC - KHOÁ 4**.\n\nVề các track chuyên sâu (Level 3-4), hiện tại Forum lớp chuyên sâu vẫn chưa có topic hướng dẫn hay nội dung cụ thể đâu nè. Chúng mình cần đợi Ban Tổ Chức (BTC) mở và có thông báo chính thức nhé.\n\nĐể cập nhật thông tin nhanh nhất về các track này, bạn hãy theo dõi sát sao kênh:\n📢 **[thông-báo-lớp-học]([link:discord.com])**\n\nNếu cần hỗ trợ gì thêm, bạn cứ nhắn mình nha! ✨"
+    },
+    {
+      "msg_id": "M34860",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D6805",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:26",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 55,
+      "content": "[@BOT] trong các buổi mentor-duty thì nhóm phải làm gì?"
+    },
+    {
+      "msg_id": "M45500",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:26",
+      "reply_to": "M34860",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 903,
+      "content": "Chào bạn nha! 👋 Trong các buổi **mentor-duty**, nhóm mình cần thực hiện báo cáo tiến độ để các Mentor nắm bắt tình hình và hỗ trợ kịp thời nè.\n\nCụ thể, nhóm bạn cần sử dụng lệnh sau trên Discord:\n`/mentor-duty submit`\n\nKhi gõ lệnh, bạn hãy điền đầy đủ các thông tin:\n*   **done**: Những phần việc mà nhóm đã hoàn thành xong.\n*   **doing**: Những việc nhóm đang thực hiện.\n*   **blocked**: Những khó khăn, vướng mắc mà nhóm đang gặp phải và cần giúp đỡ.\n*   **link**: Link dẫn đến sản phẩm, code hoặc tài liệu minh chứng.\n*   **questions**: Các câu hỏi cụ thể dành cho Mentor.\n\n✨ **Lưu ý quan trọng về XP:**\nNhóm mình nên hoàn thành và nộp báo cáo **trước 12h00** của buổi mentor-duty đó để được cộng điểm XP nhé! Nếu nộp sau khung giờ này, hệ thống vẫn ghi nhận báo cáo nhưng nhóm sẽ không được cộng XP đâu nè.\n\nChúc nhóm bạn có một buổi mentor-duty thật hiệu quả và giải quyết được mọi \"blocker\" nha! 🚀"
+    },
+    {
+      "msg_id": "M82926",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:37",
+      "reply_to": "M90646",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 95,
+      "content": "bạn có thể gõ lệnh /topic available để xem các chủ đề còn lại và /topic pick để chọn chủ đề nhé"
+    },
+    {
+      "msg_id": "M90646",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D0614",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:37",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 93,
+      "content": "[@BOT] làm thế nào để biết được là chủ đề nào đã được chọn và đăng ký chủ đề cho nhóm ở đâu ?"
+    },
+    {
+      "msg_id": "M20411",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D0614",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:40",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 61,
+      "content": "[@BOT] tôi chưa nhận thẻ sinh viên thì liên hệ ai để nhận đây"
+    },
+    {
+      "msg_id": "M51071",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:41",
+      "reply_to": "M20411",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 795,
+      "content": "Chào bạn! Nếu bạn chưa nhận được thẻ sinh viên (hoặc thẻ thành viên của chương trình), bạn có thể thực hiện các bước sau để được hỗ trợ kiểm tra nhé:\n\n1.  **Tạo Ticket hỗ trợ:** Đây là cách nhanh nhất và chính thức nhất. Bạn hãy truy cập vào kênh **#ticket-support** (hoặc click vào link này: [Kênh tạo ticket]([link:discord.com])) và dùng lệnh:\n    ` /ticket create `\n    Sau đó, bạn chọn đúng loại vấn đề (ví dụ: Membership/General) để hệ thống mở một thread riêng. Bạn hãy nhắn thông tin của mình vào đó để Ban tổ chức kiểm tra giúp bạn nha.\n\n2.  **Liên hệ trực tiếp:** Nếu cần trao đổi nhanh về các vấn đề thủ tục, bạn có thể nhắn tin hoặc tag các anh chị **@Mod** để được hướng dẫn cụ thể hơn.\n\nBạn yên tâm là Ban tổ chức sẽ hỗ trợ để bạn sớm có thẻ \"xịn\" để đồng hành cùng cộng đồng nhé! ✨"
+    },
+    {
+      "msg_id": "M16663",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D3856",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:44",
+      "reply_to": "",
+      "mentions_bot": true,
+      "n_attachments": 0,
+      "n_chars": 127,
+      "content": "[@BOT] nhóm tôi muốn xây dựng ý tưởng dự án nhưng không theo project bank thì làm thế nào để xét duyệt dự án ngoài project bank"
+    },
+    {
+      "msg_id": "M31822",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "BOT",
+      "is_bot": true,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-14 21:44",
+      "reply_to": "M16663",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 841,
+      "content": "Chào bạn! Nếu nhóm bạn muốn thực hiện dự án ngoài Project Bank, bạn cần gửi đề xuất để BTC xét duyệt thông qua hệ thống Ticket nhé.\n\nCách làm cụ thể như sau:\n\n*   **Bước 1:** Truy cập vào kênh **Tickets** tại đây: [Kênh Tickets]([link:discord.com]).\n*   **Bước 2:** Sử dụng lệnh `/ticket create`.\n*   **Bước 3:** Khi chọn `type`, bạn hãy chọn đúng mục `new-topic` (tương ứng với kênh `#đề-xuất-đề-tài-mới`).\n*   **Bước 4:** Trong ticket, bạn hãy gửi kèm mô tả chi tiết về bài toán hoặc ý tưởng dự án mà nhóm muốn thực hiện.\n\n**Lưu ý nhỏ:** \n*   Mỗi đề xuất đề tài mới cần được tạo thành một ticket riêng biệt. \n*   Sau khi tạo, hệ thống sẽ mở một thread để nhóm bạn trao đổi trực tiếp với BTC về việc xét duyệt dự án ngay trong đó.\n\nChúc nhóm bạn có một dự án thật xịn xò và \"build\" thật cháy nha! Nếu có thắc mắc gì thêm, cứ hỏi mình nhé. ✨"
+    },
+    {
+      "msg_id": "M21700",
+      "guild": "K4-L3-4",
+      "channel": "channel_10",
+      "author": "D2323",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-14 21:57",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 44,
+      "content": "tôi muốn đề xuất đề tài mới thì phải làm sao"
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 9,
+    "questions": [
+      {
+        "msg_id": "M83132",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M57683",
+            "link_type": "direct_reply"
+          },
+          {
+            "msg_id": "M24797",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Bot chỉ làm rõ loại điểm hoặc giới thiệu nơi hỏi; chưa xác định nơi xem điểm cộng cụ thể."
+      },
+      {
+        "msg_id": "M89624",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M81171",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Bot thừa nhận thiếu ngày giờ và hướng người hỏi đi kiểm tra; chưa có deadline cụ thể."
+      },
+      {
+        "msg_id": "M54287",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M21653",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Bot chỉ nhờ Mod hỗ trợ, chưa liệt kê cơ sở vật chất được dùng và ngoại lệ."
+      },
+      {
+        "msg_id": "M78882",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M91098",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Bot nói phải đợi thông báo, chưa nêu các track chuyên sâu."
+      },
+      {
+        "msg_id": "M34860",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M45500",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Bot đã hướng dẫn cách báo cáo mentor-duty. Nhãn phản ánh nội dung giải đáp, không kiểm chứng độc lập chính sách XP/deadline."
+      },
+      {
+        "msg_id": "M90646",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M82926",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Đã có lệnh xem/chọn chủ đề nhưng chưa chỉ nơi/kênh đăng ký được hỏi."
+      },
+      {
+        "msg_id": "M20411",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M51071",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M16663",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M31822",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M21700",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Có hướng dẫn tương tự trước đó cho người khác, nhưng chưa có phản hồi hoặc chỉ dẫn nối tới yêu cầu này trong input."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "msg_id": "M57683",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M24797",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M69776",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M78600",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M81171",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M21653",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M91098",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M45500",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M82926",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M51071",
+        "reason": "bot_message"
+      },
+      {
+        "msg_id": "M31822",
+        "reason": "bot_message"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_ids": [
+          "M83132"
+        ],
+        "reason": "Bot chỉ làm rõ loại điểm hoặc giới thiệu nơi hỏi; chưa xác định nơi xem điểm cộng cụ thể."
+      },
+      {
+        "message_ids": [
+          "M89624"
+        ],
+        "reason": "Bot thừa nhận thiếu ngày giờ và hướng người hỏi đi kiểm tra; chưa có deadline cụ thể."
+      },
+      {
+        "message_ids": [
+          "M54287"
+        ],
+        "reason": "Bot chỉ nhờ Mod hỗ trợ, chưa liệt kê cơ sở vật chất được dùng và ngoại lệ."
+      },
+      {
+        "message_ids": [
+          "M78882"
+        ],
+        "reason": "Bot nói phải đợi thông báo, chưa nêu các track chuyên sâu."
+      },
+      {
+        "message_ids": [
+          "M90646"
+        ],
+        "reason": "Đã có lệnh xem/chọn chủ đề nhưng chưa chỉ nơi/kênh đăng ký được hỏi."
+      },
+      {
+        "message_ids": [
+          "M21700"
+        ],
+        "reason": "Có hướng dẫn tương tự trước đó cho người khác, nhưng chưa có phản hồi hoặc chỉ dẫn nối tới yêu cầu này trong input."
+      }
+    ],
+    "counts": {
+      "answered": 3,
+      "partial_or_deferred": 5,
+      "no_visible_response": 1,
+      "ignored_messages": 11,
+      "labcoach_review_items": 6
+    }
+  },
+  "focus_target": {
+    "csv_record_row": 1024,
+    "physical_start_line": 2948,
+    "msg_id": "M89624",
+    "guild": "K4-L3-4",
+    "channel": "channel_10",
+    "created_at_vn": "2026-09-14 20:59"
+  },
+  "input_window": {
+    "selection": "20_consecutive_messages_within_guild_and_channel",
+    "guild": "K4-L3-4",
+    "channel": "channel_10",
+    "source_csv_record_rows": [
+      997,
+      998,
+      999,
+      1000,
+      1001,
+      1024,
+      1025,
+      1027,
+      1028,
+      1031,
+      1032,
+      1033,
+      1034,
+      1036,
+      1037,
+      1038,
+      1040,
+      1043,
+      1044,
+      1045
+    ],
+    "start_vn": "2026-09-14 20:23",
+    "end_vn": "2026-09-14 21:57",
+    "ordering": "Giữ thứ tự bản ghi trong CSV sau khi lọc guild/channel; timestamp làm tròn phút nên reply có thể đứng trước câu hỏi cùng phút.",
+    "missing_reply_parent_ids": [],
+    "limits": "Chỉ đánh giá bằng các tin có trong input. Không suy ra không có trả lời ở ngoài input hoặc sau thời điểm kết thúc."
+  },
+  "rubric": {
+    "pass_criteria": "Gắn partial_or_deferred; dẫn M81171; vẫn cần LabCoach bổ sung hạn nộp có căn cứ.",
+    "fail_if": "Coi có reply của bot là answered; bịa deadline hoặc khẳng định học viên đã được giải đáp.",
+    "allowed_action": "Hiển thị phân loại và bằng chứng cho LabCoach; không tự trả lời hoặc thực hiện yêu cầu của học viên.",
+    "matching": "So khớp tập msg_id và response_status, evidence phải nằm trong input, mọi tin được phân loại đúng một lần. Nội dung reason được chấm theo nghĩa, không so chuỗi nguyên văn.",
+    "focus_unresolved_parts": [
+      "Ngày giờ hạn nộp bài L3-L4 Khóa 4 Phase 1."
+    ]
+  },
+  "window_label_review_notes": [
+    {
+      "msg_id": "M21700",
+      "window_label": "no_visible_response",
+      "reason": "Có hướng dẫn tương tự trước đó cho người khác, nhưng chưa có phản hồi hoặc chỉ dẫn nối tới yêu cầu này trong input."
+    }
+  ]
+}

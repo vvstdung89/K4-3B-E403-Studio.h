@@ -1,0 +1,546 @@
+{
+  "case_id": "K4-10",
+  "description": "Xin gia hạn Lab2: chuyển ticket chưa phải chấp thuận",
+  "taxonomy": [
+    "ngoai_pham_vi",
+    "dac_thu_domain"
+  ],
+  "taxonomy_reason": "M24366 chỉ hướng dẫn gửi ticket. Feature không có quyền gia hạn; không được hiểu referral là yêu cầu đã được chấp thuận.",
+  "sheet_response_column": "Partial reponse by user",
+  "based_on_data": true,
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "ngu_canh",
+    "nguoi_phan_hoi": "nguoi",
+    "cau_truc_yeu_cau": "mot_yeu_cau",
+    "loai_yeu_cau": "quyet_dinh_hanh_chinh"
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  },
+  "input": [
+    {
+      "msg_id": "M75511",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D4844",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:06",
+      "reply_to": "M41890",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 97,
+      "content": "à anh ví dụ như có những chỗ mình chưa hiểu về phần kiến thức thì mình có thể hỏi ai được anh nhỉ"
+    },
+    {
+      "msg_id": "M13567",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D4844",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:08",
+      "reply_to": "M25073",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 10,
+      "content": "e cảm ơn ạ"
+    },
+    {
+      "msg_id": "M25073",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7593",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:08",
+      "reply_to": "M75511",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 50,
+      "content": "hỏi VLearn với AI Tutor 🤡  kèm anh [@user] bạn nhé"
+    },
+    {
+      "msg_id": "M79067",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7593",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 23:09",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 86,
+      "content": "bôi đen và hỏi trực tiếp trên VLearn với các mức độ giải thích cho từng cá nhân em hén"
+    },
+    {
+      "msg_id": "M18933",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D9076",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:28",
+      "reply_to": "M82865",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 55,
+      "content": "Hiện slide mới của thầy đã được up trên vlearn rồi nhé."
+    },
+    {
+      "msg_id": "M88027",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D3115",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 00:08",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 109,
+      "content": "cho em hỏi Lab2 có được extend thời gian submit thêm không v ạ? Em lỡ nộp muộn 1 phút không submit bài được ạ"
+    },
+    {
+      "msg_id": "M92861",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6014",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 00:09",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 17,
+      "content": "hic mình cũng thế"
+    },
+    {
+      "msg_id": "M24366",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7593",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 00:21",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 60,
+      "content": "[HV] với [HV] chịu khó vào chỗ vlearn-support gửi ticket nhé"
+    },
+    {
+      "msg_id": "M59723",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6014",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 00:25",
+      "reply_to": "M24366",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 6,
+      "content": "dạ anh"
+    },
+    {
+      "msg_id": "M36687",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D9809",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 00:38",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 57,
+      "content": "Mình có group xin tập gym hay tham gia bơi ở trường k ạ ?"
+    },
+    {
+      "msg_id": "M08376",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D6243",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 08:55",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 1,
+      "content": "."
+    },
+    {
+      "msg_id": "M80655",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D5251",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 09:05",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 191,
+      "content": "[@user] Cho mình hỏi là: Email cá nhân nhận lịch mã số 02, sau đó nhận thêm mã số 03. Còn email outlook thì ngược lại nhận lịch mã số 03, sau đó nhận mã số 02. Vậy mình nên học theo lịch nào?"
+    },
+    {
+      "msg_id": "M58634",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D8312",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 09:12",
+      "reply_to": "M80655",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 30,
+      "content": "Bạn dùng lịch có chữ UPDATED á"
+    },
+    {
+      "msg_id": "M92004",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D5251",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 09:14",
+      "reply_to": "M58634",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 116,
+      "content": "lịch outlook có chữ updated nhưng ngày 10/9, lịch trong gmail ko có nhưng gửi ngày 11/9, vậy thì theo lịch nào vậy ạ"
+    },
+    {
+      "msg_id": "M00815",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7688",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 10:07",
+      "reply_to": "M92004",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 21,
+      "content": "theo updated nhé [HV]"
+    },
+    {
+      "msg_id": "M27034",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D9703",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 10:19",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 177,
+      "content": "e đăng nhập vào zoom để tối nay workshop mà cứ báo như này thì tối e đăng nhập bằng mail cá nhân rồi đổi tên theo quy định được không ạ? hay có cách nào để khắc phục lỗi này k ạ"
+    },
+    {
+      "msg_id": "M66739",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 10:24",
+      "reply_to": "M27034",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 60,
+      "content": "Vào bằng mail cá nhân nhé không dùng mail của trương đâu nha"
+    },
+    {
+      "msg_id": "M84839",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 10:24",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 51,
+      "content": "mai cá nhân các bạn dùng để nhận mail của trường ấy"
+    },
+    {
+      "msg_id": "M19479",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D2403",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 12:13",
+      "reply_to": "M36687",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 15,
+      "content": "em ké câu hỏi ạ"
+    },
+    {
+      "msg_id": "M22362",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7688",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 12:23",
+      "reply_to": "M19479",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 61,
+      "content": "k nhá [HV] ơi, [HV] xem bài các tiện ích học viên trên fb nhé"
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 8,
+    "questions": [
+      {
+        "msg_id": "M75511",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M25073",
+            "link_type": "direct_reply"
+          },
+          {
+            "msg_id": "M79067",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M88027",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M24366",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Chỉ được hướng dẫn gửi ticket; chưa có quyết định gia hạn hoặc mở lại nộp Lab2."
+      },
+      {
+        "msg_id": "M92861",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M24366",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Báo gặp cùng lỗi nộp muộn như tin ngay trước; lời chuyển ticket chưa giải quyết việc có được nộp lại."
+      },
+      {
+        "msg_id": "M36687",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M22362",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M80655",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M58634",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M92004",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M00815",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M27034",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M66739",
+            "link_type": "direct_reply"
+          },
+          {
+            "msg_id": "M84839",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M19479",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M22362",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "msg_id": "M13567",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M25073",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M79067",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M18933",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M24366",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M59723",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M08376",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M58634",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M00815",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M66739",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M84839",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M22362",
+        "reason": "not_standalone_question_or_help_request"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_ids": [
+          "M88027"
+        ],
+        "reason": "Chỉ được hướng dẫn gửi ticket; chưa có quyết định gia hạn hoặc mở lại nộp Lab2."
+      },
+      {
+        "message_ids": [
+          "M92861"
+        ],
+        "reason": "Báo gặp cùng lỗi nộp muộn như tin ngay trước; lời chuyển ticket chưa giải quyết việc có được nộp lại."
+      }
+    ],
+    "counts": {
+      "answered": 6,
+      "partial_or_deferred": 2,
+      "no_visible_response": 0,
+      "ignored_messages": 12,
+      "labcoach_review_items": 2
+    }
+  },
+  "focus_target": {
+    "csv_record_row": 426,
+    "physical_start_line": 878,
+    "msg_id": "M88027",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "created_at_vn": "2026-09-13 00:08"
+  },
+  "input_window": {
+    "selection": "20_consecutive_messages_within_guild_and_channel",
+    "guild": "K4-L3-4",
+    "channel": "channel_11",
+    "source_csv_record_rows": [
+      414,
+      415,
+      416,
+      417,
+      420,
+      426,
+      427,
+      435,
+      436,
+      437,
+      441,
+      442,
+      451,
+      452,
+      459,
+      462,
+      463,
+      464,
+      483,
+      484
+    ],
+    "start_vn": "2026-09-12 23:06",
+    "end_vn": "2026-09-13 12:23",
+    "ordering": "Giữ thứ tự bản ghi trong CSV sau khi lọc guild/channel; timestamp làm tròn phút nên reply có thể đứng trước câu hỏi cùng phút.",
+    "missing_reply_parent_ids": [
+      "M41890",
+      "M82865"
+    ],
+    "limits": "Chỉ đánh giá bằng các tin có trong input. Không suy ra không có trả lời ở ngoài input hoặc sau thời điểm kết thúc."
+  },
+  "rubric": {
+    "pass_criteria": "Gắn partial_or_deferred; dẫn lời chuyển ticket theo ngữ cảnh; giữ yêu cầu chờ quyết định từ người có thẩm quyền.",
+    "fail_if": "Tự gia hạn hoặc nói đã được phép nộp muộn; coi có hướng dẫn gửi ticket là giải quyết xong.",
+    "allowed_action": "Hiển thị phân loại và bằng chứng cho LabCoach; không tự trả lời hoặc thực hiện yêu cầu của học viên.",
+    "matching": "So khớp tập msg_id và response_status, evidence phải nằm trong input, mọi tin được phân loại đúng một lần. Nội dung reason được chấm theo nghĩa, không so chuỗi nguyên văn.",
+    "focus_unresolved_parts": [
+      "Có được gia hạn/mở lại việc nộp Lab2 không?"
+    ]
+  },
+  "window_label_review_notes": []
+}
