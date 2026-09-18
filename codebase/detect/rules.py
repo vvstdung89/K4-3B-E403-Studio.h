@@ -1,28 +1,21 @@
 """Rule-based detection of still-unanswered student questions.
 
-No AI call here — this is the CP2 baseline. The heuristic reproduces the
-team's own validated evidence from spec.md §1 (mining data/discord-pack/):
-of 107 human messages containing '?', 23 (21%) are never the target of any
-other message's reply_to. Track B2's suggested slice adds a time threshold
-on top: only surface a question once it has gone unanswered for >= 4 hours
-(tracks/track-b-discord-assistant.md).
-
-What this rule-based pass solves vs. defers to ai_decide/ (CP3), against the
-track's hard tests:
+No AI call here — this is the CP2 baseline. Originally also filtered on a
+literal '?' in content, no reply_to in the pack, and a time threshold, but
+that literal-'?' check was found to systematically miss real Vietnamese
+questions phrased without one ("cho mình hỏi... nhỉ", "vậy ạ") — confirmed
+against eval/testcases/'s golden set, where it excluded 8/10 real questions
+in one case. Deliberately narrowed to ONLY exclude bot messages now; every
+human message becomes an AI-review candidate, letting ai_decide/'s graph
+model (which already reasons about is_question and still_needs_attention
+with full context) make that judgment instead of a crude keyword check.
 
   SOLVED HERE:
   - bot messages wrongly counted as questions -> excluded via is_bot == False
 
-  DEFERRED -- see TODO markers below, not solvable with reply_to alone:
-  - same question asked 10 different ways by different people (needs semantic
-    similarity / paraphrase matching)
-  - question already answered in a *different* thread/channel than where it
-    was asked (reply_to only captures same-thread Discord replies that are
-    ALSO present in this 3-day pack; an answer posted as a fresh message
-    elsewhere is invisible to this heuristic and will show up as a false
-    positive)
-  - the same person repeating the same question multiple times (each
-    occurrence is currently listed as its own Candidate, not deduped)
+  DEFERRED TO ai_decide/ (CP3) -- everything else: is this even a question,
+  was it answered (same thread or elsewhere), is it a duplicate of another
+  student's question.
 """
 
 from __future__ import annotations
@@ -40,33 +33,51 @@ class Candidate:
     hours_since_posted: float
 
 
-def find_unanswered_questions(
+@dataclass(frozen=True)
+class DetectionBreakdown:
+    """Per-message funnel behind find_unanswered_questions's final
+    candidate list. Only one exclusion now (bot messages) -- built for the
+    dashboard's "what did rule-based detection actually do" view;
+    find_unanswered_questions's own behavior/contract is unchanged, it's
+    just this breakdown's .candidates field now."""
+
+    total_messages: int
+    bot_messages: int
+    candidates: list[Candidate]
+
+
+def explain_detection(
     messages: list[Message],
     now: datetime,
-    min_hours_unanswered: float = 4.0,
-) -> list[Candidate]:
-    replied_to_ids = {m.reply_to for m in messages if m.reply_to}
-
+    min_hours_unanswered: float = 4.0,  # unused -- kept for signature compatibility with existing callers
+) -> DetectionBreakdown:
+    bot_messages = 0
     candidates: list[Candidate] = []
     for m in messages:
         if m.is_bot:
-            continue
-        if "?" not in m.content:
-            continue
-        if m.msg_id in replied_to_ids:
+            bot_messages += 1
             continue
 
         hours = (now - m.created_at).total_seconds() / 3600
-        if hours < min_hours_unanswered:
-            continue
-
         candidates.append(
             Candidate(
                 message=m,
-                reason=f"has '?', no reply_to in pack, {hours:.1f}h old",
+                reason=f"non-bot message, {hours:.1f}h old",
                 hours_since_posted=hours,
             )
         )
 
     candidates.sort(key=lambda c: c.hours_since_posted, reverse=True)
-    return candidates
+    return DetectionBreakdown(
+        total_messages=len(messages),
+        bot_messages=bot_messages,
+        candidates=candidates,
+    )
+
+
+def find_unanswered_questions(
+    messages: list[Message],
+    now: datetime,
+    min_hours_unanswered: float = 4.0,
+) -> list[Candidate]:
+    return explain_detection(messages, now, min_hours_unanswered).candidates

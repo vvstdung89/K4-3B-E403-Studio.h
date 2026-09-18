@@ -16,9 +16,11 @@ starts passing content into an LLM prompt.
 from __future__ import annotations
 
 import csv
+import json
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -91,3 +93,42 @@ def load_messages(csv_path: str | Path | None = None) -> list[Message]:
             except (KeyError, ValueError) as exc:
                 raise ValueError(f"Failed to parse {path} row {i} ({row.get('msg_id', '?')}): {exc}") from exc
     return messages
+
+
+def _parse_message_json(d: dict[str, Any]) -> Message:
+    """Same field mapping as _parse_row, but for eval/testcases/*.json's
+    `input` items, which are already natively typed (real bool/int from
+    json.load) rather than raw CSV strings -- a distinct, simpler parser,
+    not a rerun of _parse_bool/int()."""
+    reply_to = (d.get("reply_to") or "").strip() or None
+    return Message(
+        msg_id=d["msg_id"],
+        guild=d["guild"],
+        channel=d["channel"],
+        author=d["author"],
+        is_bot=bool(d["is_bot"]),
+        msg_type=d["msg_type"],
+        created_at=datetime.strptime(d["created_at_vn"], "%Y-%m-%d %H:%M"),
+        reply_to=reply_to,
+        mentions_bot=bool(d["mentions_bot"]),
+        n_attachments=int(d["n_attachments"]),
+        n_chars=int(d["n_chars"]),
+        content=d["content"],
+    )
+
+
+def load_test_case(path: str | Path) -> tuple[list[Message], dict[str, Any]]:
+    """Reads one eval/testcases/*.json golden-set case: its `input` messages
+    (same shape as a CSV pack, just JSON-typed) plus the full case dict
+    (case_id, description, expected_output, etc.) so callers get both
+    without re-reading the file.
+
+    Per the case format's own notes: "Only input is model input;
+    expected_output, checkpoints and rubric are for evaluation" -- callers
+    must not feed expected_output into the detection/AI pipeline, only use
+    it afterward for comparison.
+    """
+    path = Path(path)
+    case = json.loads(path.read_text(encoding="utf-8"))
+    messages = [_parse_message_json(m) for m in case["input"]]
+    return messages, case

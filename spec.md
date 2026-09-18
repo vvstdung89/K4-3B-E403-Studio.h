@@ -103,34 +103,19 @@ Lượt chạy gần nhất còn sai ở **K4-08/M84662**, **K4-10/M27034** và 
 - **Ngoài phạm vi (③):** Bot không cộng XP, duyệt gia hạn hay làm theo lệnh nhúng trong tin nhắn. Bot chỉ phân loại và nhắc LabCoach; quyết định thuộc về người có thẩm quyền.
 - **Đặc thù Discord (④):** Có reply chưa chắc đã trả lời đúng; không có reply vẫn có thể đã được giải đáp trong hội thoại. Mục tiêu là xét nội dung và đúng người hỏi, tránh nhắc trùng hoặc bỏ sót câu còn tồn.
 
-**Phần còn thiếu:** Luồng live vẫn lọc theo dấu `?` và `reply_to`, nên có thể bỏ sót trước bước LLM. Thẻ Discord chưa có nhãn độ tin cậy, lý do fallback hay link tin gốc; bước gửi embed chưa lọc câu AI đánh dấu đã giải quyết. Các luồng trên cần được kiểm thử trực tiếp trên bot, ngoài benchmark phân loại.
-
 ## §7. Kiểm thử
 
 - **Dataset:** [30 case](eval/golden_set.md) — 10 thực, 20 giả lập, phủ 4 lớp lỗi.
 - **Metric:** case pass khi nhãn, trạng thái, người phản hồi, số lượng và nhóm nhắc khớp expected output.
 - **Run 18/09:** `gpt-5.4`, reasoning `medium`; pass rate **27/30 (90%)**. Checkpoint **4/4**, unit test **20/20**.
-- **Offline hiện tại:** **26/26**, gồm 6 test bổ sung cho luồng live batch với LLM giả lập; chưa xác nhận gửi Discord thực tế.
+- **Offline hiện tại:** **29/29**, gồm 6 test batch và 3 test tích hợp bot/dashboard với LLM và Discord giả lập; chưa xác nhận gửi Discord thực tế.
 - **Quality gate:** AI: đúng ≥90% trên 30 testcase, không bỏ sót câu thực sự cần LabCoach hỗ trợ.
-
-  1. Khớp Số lượng (Scope &amp; Counts): message_count, question_count và các chỉ số đếm counts (answered, partial_or_deferred, no_visible_response, ignored_messages).
-
-  2. Khớp Chi tiết từng Câu hỏi (Questions List): So khớp 100% từng trường trong mảng questions:
-
-  msg_id, input_index, is_question (True).
-
-  Trạng thái trả lời: label &amp; response_status (answered | partial_or_deferred | no_visible_response).
-
-  Đối tượng trả lời: responder (user | labcoach | none).
-
-  Cần LabCoach xem xét: needs_labcoach_review (True nếu chưa giải đáp/trả lời thiếu ý; False nếu đã xong).
-
-**Phần chưa hoàn tất** ([chi tiết lỗi](eval/REPORT.md)):
-
-- **K4-08:** Model coi hướng dẫn tạo ticket là chưa giải quyết; golden set chấp nhận hướng dẫn này là đã trả lời.
-- **K4-10:** Model hiểu “email cá nhân hoặc sửa lỗi Zoom” thành cần đáp ứng cả hai, nên nhắc thừa.
-- **K4-H28:** Model gán phản hồi bot cho cả câu hỏi song song không được reply, nên bỏ sót nhắc.
-- **Discord demo thật:** Đã có code đọc tin và gửi nhắc; chưa xác nhận demo trọn luồng của bản batch mới trên server thật. Cần lọc câu đã giải quyết trước khi gửi embed và kiểm tra thông báo thực tế.
+  - Khớp Scope &amp; Counts: message_count, question_count và toàn bộ các trường counts (answered, partial_or_deferred, no_visible_response, ignored_messages) khớp với kết quả chuẩn.
+  - Khớp Questions List: Các phần tử trong questions khớp đầy đủ về các trường:
+    - msg_id, input_index, is_question = True.
+    - label và response_status (answered | partial_or_deferred | no_visible_response).
+    - responder (user | labcoach | none).
+    - needs_labcoach_review: True nếu câu hỏi chưa được giải đáp hoặc còn thiếu ý; False nếu đã
 
 ## §8. Phân công &amp; kế hoạch
 

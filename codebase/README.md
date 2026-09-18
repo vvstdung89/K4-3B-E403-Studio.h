@@ -1,7 +1,7 @@
 # codebase — Track B2 prototype
 
-Finds candidate student questions using a time/reply heuristic, then classifies
-the batch with LangGraph and conversation context for LabCoach review.
+Collects non-bot messages, then classifies the batch with LangGraph and
+conversation context for LabCoach review.
 Supports the course CSV pack and live Discord messages.
 
 ## Run it
@@ -47,11 +47,10 @@ telling the others — those are the shared contracts between modules.
 
 ## Known limitations
 
-- The live prefilter requires `?`, no recorded direct reply, and at least four
-  hours of waiting. It can miss implicit asks and insufficiently answered
-  questions before the model sees them.
-- Repeated live candidates are not grouped by issue. The Discord embed path
-  still needs to filter decisions marked resolved and expose review evidence;
+- Candidate collection now excludes only bots. The requested waiting threshold
+  is not yet enforced by detection; this still needs validation before live use.
+- Repeated live candidates are not grouped by issue. Discord embeds filter out
+  resolved decisions but still lack confidence and source-message links;
   see [spec.md §6](../spec.md).
 - Golden-set scores measure the separate evaluation classifier, not the live
   notification flow.

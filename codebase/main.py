@@ -55,7 +55,7 @@ def main() -> None:
     print(f"Using now = {now:%Y-%m-%d %H:%M} for the unanswered-question threshold")
 
     candidates = find_unanswered_questions(messages, now=now)
-    print(f"Found {len(candidates)} rule-based candidate(s) (? + no reply_to + >=4h old)")
+    print(f"Found {len(candidates)} non-bot candidate(s) for AI review")
 
     print("AI step: LangGraph batch classify (one LLM call for the candidate list)")
     decisions = decide(candidates, all_messages=messages)
