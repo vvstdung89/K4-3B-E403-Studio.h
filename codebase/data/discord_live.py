@@ -27,6 +27,10 @@ DISCORD_API = "https://discord.com/api/v10"
 DISCORD_EPOCH_MS = 1420070400000  # 2015-01-01T00:00:00Z, per Discord's snowflake spec
 VN_OFFSET = timezone(timedelta(hours=7))
 PAGE_LIMIT = 100
+ALL_HISTORY_SINCE = datetime(2015, 1, 1, tzinfo=timezone.utc)  # Discord's epoch (UTC) -- pass as `since` to fetch a
+# channel's entire history. Must stay tz-aware: _snowflake_from_datetime's `dt.timestamp()` interprets a naive
+# datetime as local system time, so on a UTC+ system a naive 2015-01-01 converts to a moment before the real UTC
+# epoch, producing a negative (Discord API-rejected) snowflake -- confirmed by testing on this VN (+7) machine.
 
 
 def _get(url: str, bot_token: str) -> list | dict:

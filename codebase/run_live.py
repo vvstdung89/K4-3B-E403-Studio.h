@@ -38,7 +38,6 @@ wall-clock time would put every message trivially past the threshold):
 from __future__ import annotations
 
 import argparse
-import json
 import os
 import sys
 from datetime import datetime, timedelta
@@ -46,59 +45,24 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from ai_decide.stub import Decision, decide
+from ai_decide.stub import decide
 from data.discord_live import fetch_recent_messages
 from data.loader import load_messages
 from detect.rules import find_unanswered_questions
 from notify.discord_client import send_embeds_to_discord
 from notify.formatter import format_candidate_embed, format_report
+from pipeline_common import (
+    LIVE_SEEN_IDS_PATH,
+    LOOKBACK_SAFETY_MARGIN_HOURS,
+    MIN_HOURS_UNANSWERED,
+    load_seen_ids as _load_seen_ids,
+    save_seen_ids as _save_seen_ids,
+)
 
 load_dotenv()  # must run before any os.environ.get() below, or .env-only values are silently ignored
 
-MIN_HOURS_UNANSWERED = 4.0  # matches detect.rules.find_unanswered_questions's default
-LOOKBACK_SAFETY_MARGIN_HOURS = 2.0  # covers a slow/delayed cron run without missing a candidate
 MAX_CONTEXT_HOURS = MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS  # bounds the LLM context window
-LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "gemini")  # only GEMINI_API_KEY is configured in .env
-# No model_name is passed to decide() -- ai_decide/llm_factory.py already
-# resolves the right one per provider (OPENAI_MODEL/GEMINI_MODEL/ANTHROPIC_MODEL,
-# see .env.example). Passing one here would hardcode a Gemini-shaped model
-# name that breaks if LLM_PROVIDER is ever switched to openai/anthropic.
-MAX_AI_REVIEW_PER_CALL = 5  # stay well under the free tier's per-minute quota
-LIVE_SEEN_IDS_PATH = Path("output/.live_seen_ids.json")
 CSV_TEST_SEEN_IDS_PATH = Path("output/.live_seen_ids.csv_test.json")
-
-
-def _decide_with_ai_cap(candidates: list, all_messages: list) -> list[Decision]:
-    """AI-reviews at most MAX_AI_REVIEW_PER_CALL candidates (oldest-waiting
-    first, matching find_unanswered_questions's own sort order) -- the rest
-    stay rule-based-only, defaulting to NOT flagged. detect/rules.py now
-    only excludes bot messages, so the cap-overflow set is most of every
-    message, not a small handful of genuine candidates -- defaulting it to
-    "needs attention" would flood Discord instead of covering a rare edge
-    case."""
-    ai_batch, rule_based_only = candidates[:MAX_AI_REVIEW_PER_CALL], candidates[MAX_AI_REVIEW_PER_CALL:]
-    decisions = decide(ai_batch, all_messages=all_messages, provider=LLM_PROVIDER) if ai_batch else []
-    decisions += [
-        Decision(
-            candidate=c,
-            still_needs_attention=False,
-            confidence=None,
-            rationale="[Rule-based only] Not yet AI-reviewed -- over the per-call AI review cap",
-        )
-        for c in rule_based_only
-    ]
-    return decisions
-
-
-def _load_seen_ids(path: Path) -> set[str]:
-    if not path.exists():
-        return set()
-    return set(json.loads(path.read_text(encoding="utf-8")))
-
-
-def _save_seen_ids(path: Path, seen_ids: set[str]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(sorted(seen_ids)), encoding="utf-8")
 
 
 def main() -> None:

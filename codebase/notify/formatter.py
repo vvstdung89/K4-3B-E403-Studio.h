@@ -71,7 +71,9 @@ def _short_question(content: str) -> str:
     return content[: idx + 1].strip() if idx != -1 else content.strip()
 
 
-def format_candidate_embed(decision: Decision, min_hours_unanswered: float, tick_time: datetime) -> dict:
+def format_candidate_embed(
+    decision: Decision, min_hours_unanswered: float, tick_time: datetime, interactive: bool = False
+) -> dict:
     """Builds one Discord embed dict matching outputs/workflow.jpg's message
     layout for a single still-unanswered candidate.
 
@@ -80,18 +82,30 @@ def format_candidate_embed(decision: Decision, min_hours_unanswered: float, tick
     track-b-discord-assistant.md's safety notes. The field is a placeholder,
     not the real identifier.
 
-    No functional buttons -- Discord message components require a real bot
-    with an interactions endpoint, which a plain incoming webhook (the only
-    delivery path this project has) cannot provide.
+    `interactive=True` renders the source field as a real, clickable Discord
+    message link -- only meaningful when `m.guild`/`m.channel`/`m.msg_id` are
+    real live Discord ids (bot_gateway.py's live-sourced callers), not the
+    anonymized CSV/testcase data other callers pass. Default False keeps the
+    plain-text source field every other caller already relies on.
+
+    No functional (non-link) buttons here -- those need a real bot with a
+    live interactions channel to route the click to, which a plain incoming
+    webhook (this module's only delivery path) cannot provide. bot_gateway.py
+    builds its own button row separately since it has that live channel.
     """
     c = decision.candidate
     m = c.message
+    source_value = (
+        f"[#{m.channel} · {m.guild}](https://discord.com/channels/{m.guild}/{m.channel}/{m.msg_id})"
+        if interactive
+        else f"#{m.channel} · {m.guild}"
+    )
     return {
         "title": "⚠️ Câu hỏi chưa được phản hồi",
         "color": EMBED_COLOR_AMBER,
         "fields": [
             {"name": "👤 Học viên", "value": "*(ẩn danh)*", "inline": True},
-            {"name": "📍 Nguồn", "value": f"#{m.channel} · {m.guild}", "inline": True},
+            {"name": "📍 Nguồn", "value": source_value, "inline": True},
             {"name": "💬 Câu hỏi", "value": _short_question(m.content), "inline": False},
             {"name": "📝 Nội dung", "value": f"> *{_excerpt(m.content)}*", "inline": False},
             {

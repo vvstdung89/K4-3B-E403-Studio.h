@@ -20,41 +20,38 @@ import os
 from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from dotenv import load_dotenv
 
-from ai_decide.stub import Decision, decide
-from data.discord_live import fetch_recent_messages
+from ai_decide.stub import decide
+from data.discord_live import ALL_HISTORY_SINCE, fetch_recent_messages
 from data.loader import Message, load_messages, load_test_case
 from detect.rules import explain_detection, find_unanswered_questions
-from notify.dashboard_log import log_run, read_llm_traces, read_run, read_runs
+from notify.dashboard_log import log_run, read_llm_traces, read_resolved, read_run, read_runs
+from pipeline_common import (
+    DEMO_CACHE_DIR,
+    DISCORD_PACK_DIR,
+    EVAL_TESTCASES_DIR,
+    LLM_PROVIDER,
+    LOOKBACK_SAFETY_MARGIN_HOURS,
+    MIN_HOURS_UNANSWERED,
+    ai_source as _ai_source,
+    load_cached_decisions as _load_cached_decisions,
+    load_dataset_messages as _load_dataset_messages,
+)
 
 load_dotenv()  # must run before any os.environ.get() below, or .env-only values are silently ignored
 
 PORT = 8765
 DASHBOARD_HTML_PATH = Path(__file__).resolve().parent / "dashboard" / "index.html"
-# Deliberately duplicated from bot_gateway.py rather than imported -- importing
-# that module would require live Discord bot credentials (its module-level
-# SystemExit check) and instantiate a discord.Client just for two path
-# constants, even though this server never touches Discord itself.
-DISCORD_PACK_DIR = Path(__file__).resolve().parent.parent / "data" / "discord-pack"
-EVAL_TESTCASES_DIR = Path(__file__).resolve().parent.parent / "eval" / "testcases"  # golden set, spec.md §7
-DEMO_CACHE_DIR = Path("output/demo_cache")
-
-# Pipeline constants for the dashboard's own "Run" button (/api/run) --
-# same values as bot_gateway.py's, duplicated for the same reason as the
-# path constants above: no import from bot_gateway.py.
-MIN_HOURS_UNANSWERED = 4.0  # CSV/testcase datasets -- matches bot_gateway.py's demo-path threshold
 MAX_CONTEXT_HOURS = MIN_HOURS_UNANSWERED + 2.0  # bounds the LLM context window
-LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "gemini")
 
 # Live-chat transcript support -- reads the same env vars as bot_gateway.py,
 # but degrades gracefully (LIVE_AVAILABLE=False) instead of raising, since
 # this server should still be usable for the CSV/log views without a bot
 # configured at all.
 LIVE_MIN_HOURS_UNANSWERED = float(os.environ.get("LIVE_MIN_HOURS_UNANSWERED", "0.5"))
-LOOKBACK_SAFETY_MARGIN_HOURS = 2.0
 BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 GUILD_ID = os.environ.get("DISCORD_GUILD_ID")
 CHANNEL_IDS = [c.strip() for c in os.environ.get("DISCORD_CHANNEL_IDS", "").split(",") if c.strip()]
@@ -66,20 +63,30 @@ def _enrich_run_with_expected(run: dict) -> dict:
     case, attaches that case's ground-truth `expected` entry to each
     candidate in `ai_review` (by msg_id), so the Runs & Workflow tab can
     show the same actual-vs-expected comparison the Chat Transcript tab
-    shows -- without changing what log_run() actually wrote to disk."""
+    shows -- without changing what log_run() actually wrote to disk.
+
+    Also merges each ai_review entry's current "resolved" status (from
+    notify.dashboard_log.read_resolved()) regardless of source -- a
+    candidate can be resolved via Discord's "Mark Solved" button after its
+    run was already logged, so this is computed fresh at read time."""
+    resolved = read_resolved()
+    enriched = dict(run)
+    enriched["ai_review"] = [
+        {**entry, "resolved": resolved.get(entry["msg_id"])} for entry in run.get("ai_review", [])
+    ]
+
     source = run.get("source", "")
     if not source.endswith(".json"):
-        return run
+        return enriched
     case_path = EVAL_TESTCASES_DIR / source
     if not case_path.exists():
-        return run
+        return enriched
 
     _messages, case = load_test_case(case_path)
     expected_by_id = {q["msg_id"]: q for q in case.get("expected_output", {}).get("questions", [])}
-    enriched = dict(run)
     enriched["case_description"] = case.get("description")
     enriched["ai_review"] = [
-        {**entry, "expected": expected_by_id.get(entry["msg_id"])} for entry in run.get("ai_review", [])
+        {**entry, "expected": expected_by_id.get(entry["msg_id"])} for entry in enriched["ai_review"]
     ]
     return enriched
 
@@ -138,10 +145,12 @@ def _load_dataset_transcript(dataset: str) -> dict:
     return {"dataset": dataset, "messages": rows}
 
 
-def _load_live_transcript() -> dict:
+def _load_live_transcript(all_messages: bool = False) -> dict:
     """Fetches the real channel using the same 30-min-ish lookback window as
     /labcoach-check (LIVE_MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS),
-    so "show the live chat" reflects exactly what that command would see.
+    so "show the live chat" reflects exactly what that command would see --
+    unless `all_messages` is set, which fetches the channel's entire history
+    instead.
 
     No AI decision is computed here (this endpoint doesn't call the LLM --
     a page load shouldn't burn API quota) -- instead it best-effort reuses
@@ -150,12 +159,13 @@ def _load_live_transcript() -> dict:
     candidate just shows as rule-based-flagged, unreviewed.
     """
     now = datetime.now()
-    since = now - timedelta(hours=LIVE_MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS)
+    since = ALL_HISTORY_SINCE if all_messages else now - timedelta(hours=LIVE_MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS)
     messages = fetch_recent_messages(CHANNEL_IDS, GUILD_ID, BOT_TOKEN, since)
     candidates = find_unanswered_questions(messages, now=now, min_hours_unanswered=LIVE_MIN_HOURS_UNANSWERED)
     candidate_ids = {c.message.msg_id for c in candidates}
 
     ai_by_id = _most_recent_ai_review("labcoach-check")
+    resolved = read_resolved()
 
     rows = []
     for m in messages:
@@ -165,13 +175,18 @@ def _load_live_transcript() -> dict:
             # bot messages, so most of the live channel qualifies as a rule-
             # based candidate; without a logged AI review, "needs attention"
             # isn't a real judgment, just an unreviewed default.
-            row["decision"] = ai_by_id.get(m.msg_id) or {
-                "msg_id": m.msg_id,
-                "source": "unreviewed",
-                "still_needs_attention": False,
-                "confidence": None,
-                "rationale": "Rule-based candidate -- run /labcoach-check in Discord to get an AI review",
-            }
+            decision = dict(
+                ai_by_id.get(m.msg_id)
+                or {
+                    "msg_id": m.msg_id,
+                    "source": "unreviewed",
+                    "still_needs_attention": False,
+                    "confidence": None,
+                    "rationale": "Rule-based candidate -- run /labcoach-check in Discord to get an AI review",
+                }
+            )
+            decision["resolved"] = resolved.get(m.msg_id)
+            row["decision"] = decision
         else:
             row["decision"] = None
         rows.append(row)
@@ -196,49 +211,6 @@ def _load_testcase_transcript(dataset: str) -> dict:
         row["decision"] = ai_by_id.get(m.msg_id)
         rows.append(row)
     return {"dataset": dataset, "messages": rows, "case": {"case_id": case.get("case_id"), "description": case.get("description")}}
-
-
-def _load_dataset_messages(dataset: str) -> list[Message]:
-    """Same split as bot_gateway.py's own _load_dataset_messages -- .json is
-    an eval/testcases golden-set case, .csv is the plain discord-pack
-    format. Duplicated rather than imported for the same reason as the path
-    constants above."""
-    if dataset.endswith(".json"):
-        messages, _case = load_test_case(EVAL_TESTCASES_DIR / dataset)
-        return messages
-    return load_messages(DISCORD_PACK_DIR / dataset)
-
-
-def _ai_source(decision: Decision, used_cache: bool) -> str:
-    if decision.rationale.startswith("[Rule-based only] Not in demo cache"):
-        return "cache-miss-fallback"
-    if decision.rationale.startswith("[Rule-based only]"):
-        return "rule-based-cap"
-    return "cache" if used_cache else "live-ai"
-
-
-def _load_cached_decisions(dataset: str, candidates: list) -> list[Decision] | None:
-    cache_path = DEMO_CACHE_DIR / f"{Path(dataset).stem}.json"
-    if not cache_path.exists():
-        return None
-    cache = json.loads(cache_path.read_text(encoding="utf-8"))
-    cached_by_id = {d["msg_id"]: d for d in cache["decisions"]}
-    decisions = []
-    for c in candidates:
-        cached = cached_by_id.get(c.message.msg_id)
-        if cached is None:
-            # An incomplete cache cannot silently clear unreviewed candidates.
-            return None
-        else:
-            decisions.append(
-                Decision(
-                    candidate=c,
-                    still_needs_attention=cached["still_needs_attention"],
-                    confidence=cached["confidence"],
-                    rationale=cached["rationale"],
-                )
-            )
-    return decisions
 
 
 def run_pipeline_and_log(dataset: str) -> dict:
@@ -321,7 +293,9 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:  # noqa: N802 (http.server's required method name)
-        path = urlparse(self.path).path
+        parsed = urlparse(self.path)
+        path = parsed.path
+        query = parse_qs(parsed.query)
 
         if path == "/":
             self._send_html(DASHBOARD_HTML_PATH.read_text(encoding="utf-8"))
@@ -364,7 +338,8 @@ class Handler(BaseHTTPRequestHandler):
                     )
                     return
                 try:
-                    self._send_json(_load_live_transcript())
+                    all_messages = query.get("all", ["false"])[0] == "true"
+                    self._send_json(_load_live_transcript(all_messages=all_messages))
                 except Exception as exc:
                     self._send_json({"error": str(exc)}, status=502)
                 return

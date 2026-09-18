@@ -45,113 +45,35 @@ the live path are intentionally different constants.
 
 from __future__ import annotations
 
-import json
 import os
 from datetime import datetime, timedelta
-from pathlib import Path
 
 import discord
 from discord import app_commands
+from discord.ext import tasks
 from dotenv import load_dotenv
 
-from ai_decide.stub import Decision, decide
-from data.discord_live import fetch_recent_messages
-from data.loader import load_messages, load_test_case
+from ai_decide.stub import decide
+from data.discord_live import ALL_HISTORY_SINCE, fetch_recent_messages
 from detect.rules import explain_detection
-from notify.dashboard_log import log_run
+from notify.dashboard_log import log_run, mark_resolved
 from notify.formatter import format_candidate_embed
+from pipeline_common import (
+    DISCORD_PACK_DIR,
+    EVAL_TESTCASES_DIR,
+    LIVE_SEEN_IDS_PATH,
+    LOOKBACK_SAFETY_MARGIN_HOURS,
+    MIN_HOURS_UNANSWERED,
+    load_dataset_messages as _load_dataset_messages,
+    load_seen_ids,
+    save_seen_ids,
+)
 
 load_dotenv()  # must run before any os.environ.get() below, or .env-only values are silently ignored
 
-MIN_HOURS_UNANSWERED = 4.0  # /labcoach-demo (CSV path) -- must match build_demo_cache.py's cache, don't change lightly
 LIVE_MIN_HOURS_UNANSWERED = float(os.environ.get("LIVE_MIN_HOURS_UNANSWERED", "0.5"))  # /labcoach-check only -- lowered for demo purposes, real messages rarely sit unanswered for a full 4h during a live demo
-LOOKBACK_SAFETY_MARGIN_HOURS = 2.0  # matches run_live.py's live-mode lookback
 MAX_CONTEXT_HOURS = MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS  # bounds the LLM context window
-LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "gemini")  # only GEMINI_API_KEY is configured in .env
-# No model_name is passed to decide() -- ai_decide/llm_factory.py already
-# resolves the right one per provider (OPENAI_MODEL/GEMINI_MODEL/ANTHROPIC_MODEL,
-# see .env.example). Passing one here would hardcode a Gemini-shaped model
-# name that breaks if LLM_PROVIDER is ever switched to openai/anthropic.
-MAX_AI_REVIEW_PER_CALL = 5  # stay well under the free tier's per-minute quota
-DISCORD_PACK_DIR = Path(__file__).resolve().parent.parent / "data" / "discord-pack"
-EVAL_TESTCASES_DIR = Path(__file__).resolve().parent.parent / "eval" / "testcases"  # golden set, spec.md §7
-DEMO_CACHE_DIR = Path("output/demo_cache")  # built by build_demo_cache.py
-
-
-def _load_dataset_messages(dataset: str) -> list:
-    """Loads a /labcoach-demo dataset by its selected filename -- .json is a
-    golden-set case (eval/testcases/, expected_output ignored here, it's
-    for the dashboard's comparison view, not the detection/AI pipeline),
-    .csv is the plain discord-pack format."""
-    if dataset.endswith(".json"):
-        messages, _case = load_test_case(EVAL_TESTCASES_DIR / dataset)
-        return messages
-    return load_messages(DISCORD_PACK_DIR / dataset)
-
-
-def _load_cached_decisions(dataset: str, candidates: list) -> list[Decision] | None:
-    """Loads pre-computed decisions for `dataset` from build_demo_cache.py's
-    output, matched back onto the freshly-loaded `candidates` by msg_id.
-    Returns None if no cache exists for this dataset (caller falls back to
-    a live AI call). A candidate not found in the cache (e.g. the CSV
-    changed since the cache was built, or detect/rules.py's filter changed
-    and the cache is stale) degrades to rule-based-only, defaulting to NOT
-    flagged -- same reasoning as _decide_with_ai_cap's own cap fallback:
-    with detection now including every non-bot message, an unreviewed
-    default of "needs attention" would flood Discord, not just cover a
-    rare edge case."""
-    cache_path = DEMO_CACHE_DIR / f"{Path(dataset).stem}.json"
-    if not cache_path.exists():
-        return None
-
-    cache = json.loads(cache_path.read_text(encoding="utf-8"))
-    cached_by_id = {d["msg_id"]: d for d in cache["decisions"]}
-    decisions = []
-    for c in candidates:
-        cached = cached_by_id.get(c.message.msg_id)
-        if cached is None:
-            decisions.append(
-                Decision(
-                    candidate=c,
-                    still_needs_attention=False,
-                    confidence=None,
-                    rationale="[Rule-based only] Not in demo cache -- rebuild with build_demo_cache.py",
-                )
-            )
-        else:
-            decisions.append(
-                Decision(
-                    candidate=c,
-                    still_needs_attention=cached["still_needs_attention"],
-                    confidence=cached["confidence"],
-                    rationale=cached["rationale"],
-                )
-            )
-    return decisions
-
-
-def _decide_with_ai_cap(candidates: list, all_messages: list) -> list[Decision]:
-    """AI-reviews at most MAX_AI_REVIEW_PER_CALL candidates (oldest-waiting
-    first, matching find_unanswered_questions's own sort order) -- the rest
-    stay rule-based-only, defaulting to NOT flagged. detect/rules.py now
-    only excludes bot messages, so the cap-overflow set is most of every
-    message in the channel, not a small handful of genuine candidates --
-    defaulting it to "needs attention" (the old behavior) would flood
-    Discord with hundreds of embeds per run instead of covering a rare
-    edge case."""
-    ai_batch, rule_based_only = candidates[:MAX_AI_REVIEW_PER_CALL], candidates[MAX_AI_REVIEW_PER_CALL:]
-    decisions = decide(ai_batch, all_messages=all_messages, provider=LLM_PROVIDER) if ai_batch else []
-    decisions += [
-        Decision(
-            candidate=c,
-            still_needs_attention=False,
-            confidence=None,
-            rationale="[Rule-based only] Not yet AI-reviewed -- over the per-call AI review cap",
-        )
-        for c in rule_based_only
-    ]
-    return decisions
-
+LIVE_CHECK_INTERVAL_MINUTES = float(os.environ.get("LIVE_CHECK_INTERVAL_MINUTES", "30"))  # auto_check_live's cadence
 
 BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 GUILD_ID = os.environ.get("DISCORD_GUILD_ID")
@@ -169,12 +91,37 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
 
-def _ai_source(decision: Decision, used_cache: bool) -> str:
-    if decision.rationale.startswith("[Rule-based only] Not in demo cache"):
-        return "cache-miss-fallback"
-    if decision.rationale.startswith("[Rule-based only]"):
-        return "rule-based-cap"
-    return "cache" if used_cache else "live-ai"
+def _build_action_view(m, guild_id: str) -> discord.ui.View:
+    """One message's button row: a Link-style "jump to message" button (no
+    interaction routing needed -- Discord opens the URL client-side) plus a
+    "Mark Solved" button whose callback is assigned directly on the Button
+    instance. That's the discord.py pattern that coexists safely with
+    app_commands.CommandTree -- overriding Client.on_interaction instead
+    would risk shadowing the tree's own slash-command dispatch.
+
+    Built fresh per message with a dynamic custom_id (labcoach:resolve:<msg_id>)
+    and lives only in memory for this process's lifetime -- if bot_gateway.py
+    restarts, buttons on older messages stop working (no persistent-view
+    registration for arbitrarily many dynamic ids). Acceptable for now."""
+    view = discord.ui.View(timeout=None)
+    link = f"https://discord.com/channels/{guild_id}/{m.channel}/{m.msg_id}"
+    view.add_item(discord.ui.Button(style=discord.ButtonStyle.link, url=link, label="Jump to message"))
+
+    resolve_btn = discord.ui.Button(
+        style=discord.ButtonStyle.success, label="Mark Solved", custom_id=f"labcoach:resolve:{m.msg_id}"
+    )
+
+    async def _on_resolve(interaction: discord.Interaction) -> None:
+        resolver = str(interaction.user)
+        mark_resolved(m.msg_id, resolved_by=resolver)
+        embed = interaction.message.embeds[0]
+        embed.color = discord.Color.green()
+        embed.add_field(name="✅ Đã xử lý", value=f"Resolved by {resolver}", inline=False)
+        await interaction.response.edit_message(embed=embed, view=None)
+
+    resolve_btn.callback = _on_resolve
+    view.add_item(resolve_btn)
+    return view
 
 
 async def _reply_with_candidates(
@@ -240,6 +187,18 @@ async def _reply_with_candidates(
             ephemeral=ephemeral,
         )
         return
+    if source == "live":
+        # One message per candidate -- buttons attach to the whole message,
+        # not to an individual embed within it, so a per-candidate "Mark
+        # Solved" button needs its own message.
+        for d in decisions:
+            embed = discord.Embed.from_dict(
+                format_candidate_embed(d, min_hours_unanswered, now, interactive=True)
+            )
+            view = _build_action_view(d.candidate.message, GUILD_ID)
+            await interaction.followup.send(embed=embed, view=view, ephemeral=ephemeral)
+        return
+
     embeds = [
         discord.Embed.from_dict(format_candidate_embed(d, min_hours_unanswered, now)) for d in decisions
     ]
@@ -261,13 +220,18 @@ THRESHOLD_CHOICES = [
     description="Check the real Discord channel right now for unanswered questions",
     guild=GUILD_OBJECT,
 )
-@app_commands.describe(threshold="How long unanswered before it's flagged (default: LIVE_MIN_HOURS_UNANSWERED in .env)")
+@app_commands.describe(
+    threshold="How long unanswered before it's flagged (default: LIVE_MIN_HOURS_UNANSWERED in .env)",
+    all_messages="Fetch the channel's entire history instead of just the recent lookback window",
+)
 @app_commands.choices(threshold=THRESHOLD_CHOICES)
-async def labcoach_check(interaction: discord.Interaction, threshold: app_commands.Choice[int] | None = None) -> None:
+async def labcoach_check(
+    interaction: discord.Interaction, threshold: app_commands.Choice[int] | None = None, all_messages: bool = False
+) -> None:
     await interaction.response.defer()
     min_hours = threshold.value / 60 if threshold is not None else LIVE_MIN_HOURS_UNANSWERED
     now = datetime.now()
-    since = now - timedelta(hours=min_hours + LOOKBACK_SAFETY_MARGIN_HOURS)
+    since = ALL_HISTORY_SINCE if all_messages else now - timedelta(hours=min_hours + LOOKBACK_SAFETY_MARGIN_HOURS)
     messages = fetch_recent_messages(CHANNEL_IDS, GUILD_ID, BOT_TOKEN, since)
     await _reply_with_candidates(
         interaction, messages, now, min_hours_unanswered=min_hours, command="labcoach-check", source="live"
@@ -363,10 +327,87 @@ async def labcoach_csv_preview(
         await interaction.followup.send(f"```\n{chr(10).join(chunk)}\n```", ephemeral=True)
 
 
+@tasks.loop(minutes=LIVE_CHECK_INTERVAL_MINUTES)
+async def auto_check_live() -> None:
+    """Unattended counterpart to /labcoach-check -- runs on a timer instead of
+    a slash command, using the production MIN_HOURS_UNANSWERED threshold (not
+    LIVE_MIN_HOURS_UNANSWERED's demo-lowered value), deduping against the same
+    disk-persisted seen_ids run_live.py uses so a still-unanswered question
+    isn't reposted every tick. Posts via the bot's own channel.send() (not a
+    webhook -- a plain incoming webhook can't host a working "Mark Solved"
+    button, see _build_action_view), one message per still-open candidate,
+    into that candidate's own originating channel."""
+    now = datetime.now()
+    since = now - timedelta(hours=MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS)
+    messages = fetch_recent_messages(CHANNEL_IDS, GUILD_ID, BOT_TOKEN, since)
+
+    run_id = f"{datetime.now():%Y%m%dT%H%M%S%f}"
+    record: dict = {
+        "run_id": run_id,
+        "command": "labcoach-auto",
+        "source": "live",
+        "started_at": datetime.now().isoformat(),
+        "now": now.isoformat(),
+        "fetch": {"message_count": len(messages), "min_hours_unanswered": MIN_HOURS_UNANSWERED},
+    }
+
+    breakdown = explain_detection(messages, now=now, min_hours_unanswered=MIN_HOURS_UNANSWERED)
+    seen_ids = load_seen_ids(LIVE_SEEN_IDS_PATH)
+    new_candidates = [c for c in breakdown.candidates if c.message.msg_id not in seen_ids]
+    seen_ids.update(c.message.msg_id for c in breakdown.candidates)
+    save_seen_ids(LIVE_SEEN_IDS_PATH, seen_ids)
+
+    record["detection_breakdown"] = {
+        "total_messages": breakdown.total_messages,
+        "bot_messages": breakdown.bot_messages,
+        "candidates": len(breakdown.candidates),
+    }
+    record["candidates"] = [
+        {
+            "msg_id": c.message.msg_id,
+            "channel": c.message.channel,
+            "content": c.message.content,
+            "hours_since_posted": c.hours_since_posted,
+        }
+        for c in new_candidates
+    ]
+    if not new_candidates:
+        record["ai_review"] = []
+        record["posted"] = []
+        log_run(record)
+        return
+
+    decisions = decide(new_candidates, all_messages=messages)
+    record["ai_review"] = [
+        {
+            "msg_id": d.candidate.message.msg_id,
+            "source": "live-ai",
+            "still_needs_attention": d.still_needs_attention,
+            "confidence": d.confidence,
+            "rationale": d.rationale,
+        }
+        for d in decisions
+    ]
+    still_open = [d for d in decisions if d.still_needs_attention]
+    record["posted"] = [d.candidate.message.msg_id for d in still_open]
+    log_run(record)
+    for d in still_open:
+        m = d.candidate.message
+        embed = discord.Embed.from_dict(format_candidate_embed(d, MIN_HOURS_UNANSWERED, now, interactive=True))
+        view = _build_action_view(m, GUILD_ID)
+        try:
+            channel = client.get_channel(int(m.channel)) or await client.fetch_channel(int(m.channel))
+            await channel.send(embed=embed, view=view)
+        except discord.DiscordException as exc:
+            print(f"[auto_check_live] Failed to post to channel {m.channel}: {exc}")
+
+
 @client.event
 async def on_ready() -> None:
     await tree.sync(guild=GUILD_OBJECT)
     print(f"Logged in as {client.user} -- commands synced to guild {GUILD_ID}")
+    if not auto_check_live.is_running():
+        auto_check_live.start()
 
 
 if __name__ == "__main__":

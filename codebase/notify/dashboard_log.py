@@ -10,6 +10,7 @@ what the dashboard's workflow timeline actually needs.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +19,9 @@ RUNS_LOG_PATH = Path("output/dashboard_logs/runs.jsonl")
 # __file__-relative default) -- resolved the same way here so reading it
 # doesn't depend on the caller's cwd matching bot_gateway.py's.
 LLM_TRACES_PATH = Path(__file__).resolve().parent.parent / "logs" / "llm_traces.jsonl"
+# Written by bot_gateway.py's "Mark Solved" button callback; read here so the
+# dashboard can show resolution status without its own separate store.
+RESOLVED_PATH = Path("output/dashboard_logs/resolved.json")
 
 
 def log_run(record: dict[str, Any]) -> None:
@@ -46,12 +50,41 @@ def read_run(run_id: str) -> dict[str, Any] | None:
     return None
 
 
+def mark_resolved(msg_id: str, resolved_by: str) -> None:
+    """Records that a human resolved `msg_id` via the "Mark Solved" button --
+    merged, not replaced, so concurrent resolutions of different candidates
+    don't clobber each other."""
+    resolved = read_resolved()
+    resolved[msg_id] = {"resolved_by": resolved_by, "resolved_at": datetime.now(timezone.utc).isoformat()}
+    RESOLVED_PATH.parent.mkdir(parents=True, exist_ok=True)
+    RESOLVED_PATH.write_text(json.dumps(resolved, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def read_resolved() -> dict[str, dict[str, str]]:
+    """All resolved candidates, keyed by msg_id. Empty dict if none yet."""
+    if not RESOLVED_PATH.exists():
+        return {}
+    return json.loads(RESOLVED_PATH.read_text(encoding="utf-8"))
+
+
 def read_llm_traces(msg_id: str | None = None) -> list[dict[str, Any]]:
     """Reads ai_decide/logger.py's raw LLM audit trail (read-only -- that
     module is owned by the AI-logic teammate and stays untouched). Real
     proof a given answer came from an actual graph/model call: provider,
     exact model name, the full raw prompt sent, the full raw response, and
     latency -- a fallback or cached answer never has a matching entry here.
+
+    ai_decide/graph.py's decision_classify_node logs one trace per BATCH
+    call, not per candidate: candidate_msg_id is "batch-decide:<comma-joined
+    ids of up to the first 8 candidates in that batch>", and its
+    parsed_decision.items covers every candidate in the batch (which can be
+    much larger than 8). Matching for such a trace checks membership in that
+    id list, not equality, and the returned copy is narrowed to just the
+    requested candidate's item -- see _narrow_to_candidate. A candidate past
+    the first 8 of a larger batch has no id recorded at all and won't match;
+    that's a limit of how ai_decide/graph.py builds the trace id, not fixed
+    here.
+
     Most recent first; optionally filtered to one candidate_msg_id."""
     if not LLM_TRACES_PATH.exists():
         return []
@@ -62,6 +95,29 @@ def read_llm_traces(msg_id: str | None = None) -> list[dict[str, Any]]:
             if not line:
                 continue
             trace = json.loads(line)
-            if msg_id is None or trace.get("candidate_msg_id") == msg_id:
+            if msg_id is None:
                 traces.append(trace)
+                continue
+            cid = trace.get("candidate_msg_id", "")
+            if cid == msg_id:
+                traces.append(trace)
+            elif cid.startswith("batch-decide:") and msg_id in cid.removeprefix("batch-decide:").split(","):
+                traces.append(_narrow_to_candidate(trace, msg_id))
     return list(reversed(traces))
+
+
+def _narrow_to_candidate(trace: dict[str, Any], msg_id: str) -> dict[str, Any]:
+    """Returns a copy of a batch trace with parsed_decision narrowed to just
+    one candidate's item, so callers see one decision instead of the whole
+    batch's. Falls back to the trace unchanged if the shape isn't as expected
+    or the candidate isn't actually in items (shouldn't happen given the
+    caller already matched candidate_msg_id, but stay defensive)."""
+    items = (trace.get("parsed_decision") or {}).get("items")
+    if not isinstance(items, list):
+        return trace
+    match = next((item for item in items if item.get("msg_id") == msg_id), None)
+    if match is None:
+        return trace
+    narrowed = dict(trace)
+    narrowed["parsed_decision"] = match
+    return narrowed

@@ -45,14 +45,19 @@ class DiscordMergeTests(unittest.IsolatedAsyncioTestCase):
         interaction = SimpleNamespace(followup=SimpleNamespace(send=AsyncMock()))
         with patch.object(gateway, "decide", return_value=decisions) as decide, \
              patch.object(gateway, "log_run") as log, \
-             patch.object(gateway, "format_candidate_embed", side_effect=lambda d, *_: {"title": d.candidate.message.msg_id}):
+             patch.object(gateway, "format_candidate_embed", side_effect=lambda d, *args, **kwargs: {"title": d.candidate.message.msg_id}):
             await gateway._reply_with_candidates(interaction, messages, now, ephemeral=True)
         decide.assert_called_once_with(candidates, all_messages=messages)
         self.assertEqual(len(log.call_args.args[0]["ai_review"]), 7)
         self.assertEqual(log.call_args.args[0]["posted"], ["q6"])
+        # source="live" (the default) now sends one message per still-open
+        # candidate -- each with its own embed + action-button view, instead
+        # of one message batching all embeds together -- so a button can
+        # attach to that one candidate specifically.
         interaction.followup.send.assert_awaited_once()
         sent = interaction.followup.send.call_args.kwargs
-        self.assertEqual([embed.title for embed in sent["embeds"]], ["q6"])
+        self.assertEqual(sent["embed"].title, "q6")
+        self.assertIn("view", sent)
         self.assertTrue(sent["ephemeral"])
 
 
