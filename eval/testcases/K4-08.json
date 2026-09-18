@@ -1,0 +1,527 @@
+{
+  "case_id": "K4-08",
+  "description": "Cùng học viên hỏi lại: gom một vấn đề còn tồn",
+  "taxonomy": [
+    "dac_thu_domain",
+    "mo_ho"
+  ],
+  "taxonomy_reason": "Cùng người lặp câu hỏi phê duyệt email trong hai đoạn ngữ cảnh. Cần gom mục nhắc nhưng giữ cả hai mã tin; không khẳng định khoảng bị bỏ qua không có phản hồi.",
+  "sheet_response_column": "No reponse",
+  "based_on_data": true,
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "khong_co",
+    "nguoi_phan_hoi": "khong_co",
+    "cau_truc_yeu_cau": "hoi_lap",
+    "loai_yeu_cau": "quyet_dinh_hanh_chinh"
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  },
+  "input": [
+    {
+      "msg_id": "M23074",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D7688",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 19:28",
+      "reply_to": "M00554",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 7,
+      "content": "ko nhaa"
+    },
+    {
+      "msg_id": "M31502",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 19:29",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 15,
+      "content": "Cùng 1 level ấy"
+    },
+    {
+      "msg_id": "M61093",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D0842",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 19:29",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 18,
+      "content": "e cảm ơn các sếp ạ"
+    },
+    {
+      "msg_id": "M30246",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D1253",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 19:51",
+      "reply_to": "M37634",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 103,
+      "content": "Tại e thấy trong sổ tay phải có xác nhận của giám đốc, nên là k biết e có phải chờ mail phản hồi k ạ???"
+    },
+    {
+      "msg_id": "M90166",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3154",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 20:41",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 63,
+      "content": "cho em hỏi level 2-3 build phase là bắt buộc hay optional vậy ạ"
+    },
+    {
+      "msg_id": "M13316",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 21:32",
+      "reply_to": "M90166",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 107,
+      "content": "bắt buột không phải option nhé. Các bạn vừa học trên trường vừa tham gia Build phase ban đêm với mentor nhé"
+    },
+    {
+      "msg_id": "M15562",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D0842",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 21:32",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 122,
+      "content": "dạ cho em hỏi là e thấy level 2 nhiều bạn nontech thì liệu có được bắt tay giữa 2 team để làm 1 project hoàn chỉnh không ạ"
+    },
+    {
+      "msg_id": "M40821",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9148",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 21:33",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 18,
+      "content": "hoặc kết hợp qa qc"
+    },
+    {
+      "msg_id": "M90319",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9148",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 21:33",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 73,
+      "content": "non-tech thì mình nghĩ nên bảo các bạn ấy vừa vibe code vừa đọc hiểu code"
+    },
+    {
+      "msg_id": "M45489",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 21:34",
+      "reply_to": "M15562",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 391,
+      "content": "Các bạn có thể tìm cho mình những người đồng đội phụ hợp trong chương trình mà , mình chưa hiểu giữa 2 team này là phạm trù nào ? vì đã chia team thì các bạn sẽ work với team của mình ấy.  1 team đến 5 TV nên mình nghĩ các bạn nên chọn đa dạng để bổ sung cho nhau nhé. Với suy nghĩ cá nhân của mình thì với sự hỗ trợ của AI hiện tại non-tech hay không thì cũng không phải rào cản quá lớn đâu"
+    },
+    {
+      "msg_id": "M89395",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 22:51",
+      "reply_to": "M54778",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 66,
+      "content": "Hệ thống sẽ xép chứ, tất cả đều phải có team thì mới work được nha"
+    },
+    {
+      "msg_id": "M81676",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D6569",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 22:52",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 84,
+      "content": "à ý em là hệ thống ghép các bạn đó vào team đang thiếu luôn hay ghép 1 team mới ấy ạ"
+    },
+    {
+      "msg_id": "M74381",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 22:53",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 75,
+      "content": "Sẽ ghép đủ 5 thành viên / 1 team nhé nó sẽ fill cho đến team cuối cùng thôi"
+    },
+    {
+      "msg_id": "M48859",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D1253",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:15",
+      "reply_to": "M37634",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 109,
+      "content": "A ơi, Tại e thấy trong sổ tay phải có xác nhận của giám đốc, nên là k biết e có phải chờ mail phản hồi k ạ???"
+    },
+    {
+      "msg_id": "M84662",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9288",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 23:15",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 60,
+      "content": "Ac labcoach hỗ trợ em với cái phoenix của em mãi k vào đc ấy"
+    },
+    {
+      "msg_id": "M00553",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3389",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 23:16",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 85,
+      "content": "cho em hỏi tuần thứ 4 mình ojt, build 6 tuần vậy vừa obj fulltime vừa build phải ko ạ"
+    },
+    {
+      "msg_id": "M54372",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9288",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-12 23:16",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 57,
+      "content": "Dù em đki đúng mail nhưng vẫn báo k trùng mail đki vs btc"
+    },
+    {
+      "msg_id": "M78683",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D0485",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:16",
+      "reply_to": "M84662",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 17,
+      "content": "bạn tạo ticket ấy"
+    },
+    {
+      "msg_id": "M28576",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9617",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:19",
+      "reply_to": "M54372",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 64,
+      "content": "vào đúng link trong thông báo nhé không phải link trong mail nha"
+    },
+    {
+      "msg_id": "M25574",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9617",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-12 23:20",
+      "reply_to": "M71126",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 68,
+      "content": "Ở đây nhé kênh thông báo quan trọng sẽ ở kênh này [link:discord.com]"
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 8,
+    "questions": [
+      {
+        "msg_id": "M30246",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Chưa có phản hồi trả lời việc phải chờ email phê duyệt; cùng vấn đề với M48859."
+      },
+      {
+        "msg_id": "M90166",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M13316",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M15562",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M45489",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M81676",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M74381",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M48859",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Hỏi lặp cùng người và cùng nội dung với M30246; chưa có phản hồi liên quan trong các đoạn input."
+      },
+      {
+        "msg_id": "M84662",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M28576",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M00553",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Chưa thấy trả lời việc vừa OJT fulltime vừa build trong các đoạn input."
+      },
+      {
+        "msg_id": "M54372",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M28576",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "msg_id": "M23074",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M31502",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M61093",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M13316",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M40821",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M90319",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M45489",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M89395",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M74381",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M78683",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M28576",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M25574",
+        "reason": "not_standalone_question_or_help_request"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_ids": [
+          "M30246",
+          "M48859"
+        ],
+        "reason": "Cùng người hỏi lại phần chưa được giải đáp; gom một mục nhắc và giữ cả hai mã nguồn."
+      },
+      {
+        "message_ids": [
+          "M00553"
+        ],
+        "reason": "Chưa thấy trả lời việc vừa OJT fulltime vừa build trong các đoạn input."
+      }
+    ],
+    "counts": {
+      "answered": 5,
+      "partial_or_deferred": 0,
+      "no_visible_response": 3,
+      "ignored_messages": 12,
+      "labcoach_review_items": 2
+    }
+  },
+  "focus_target": {
+    "csv_record_row": 120,
+    "physical_start_line": 164,
+    "msg_id": "M48859",
+    "guild": "K4-L2-3",
+    "channel": "channel_02",
+    "created_at_vn": "2026-09-12 23:15"
+  },
+  "input_window": {
+    "selection": "two_channel_segments_of_10",
+    "guild": "K4-L2-3",
+    "channel": "channel_02",
+    "source_csv_record_rows": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      115,
+      116,
+      117,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126
+    ],
+    "start_vn": "2026-09-12 19:28",
+    "end_vn": "2026-09-12 23:20",
+    "ordering": "Giữ thứ tự bản ghi trong CSV sau khi lọc guild/channel; timestamp làm tròn phút nên reply có thể đứng trước câu hỏi cùng phút.",
+    "missing_reply_parent_ids": [
+      "M00554",
+      "M37634",
+      "M54778",
+      "M71126"
+    ],
+    "limits": "Chỉ đánh giá bằng các tin có trong input. Không suy ra không có trả lời ở ngoài input hoặc sau thời điểm kết thúc.",
+    "selection_note": "Hai lần hỏi cách nhau 46 vị trí trong kênh; lấy 10 tin quanh mỗi lần, không phải một đoạn liên tục. Khoảng giữa bị bỏ qua nên chỉ kết luận trong các đoạn được cung cấp."
+  },
+  "rubric": {
+    "pass_criteria": "M30246 và M48859 đều no_visible_response trong input; gom chúng thành một mục nhắc. Các câu hỏi khác vẫn được chấm riêng.",
+    "fail_if": "Đếm hai lần hỏi lặp thành hai vấn đề độc lập hoặc khẳng định đã kiểm tra đầy đủ khoảng hội thoại bị bỏ qua.",
+    "allowed_action": "Hiển thị phân loại và bằng chứng cho LabCoach; không tự trả lời hoặc thực hiện yêu cầu của học viên.",
+    "matching": "So khớp tập msg_id và response_status, evidence phải nằm trong input, mọi tin được phân loại đúng một lần. Nội dung reason được chấm theo nghĩa, không so chuỗi nguyên văn.",
+    "focus_unresolved_parts": [
+      "Có phải chờ email phản hồi/xác nhận của giám đốc không?"
+    ]
+  },
+  "window_label_review_notes": []
+}
