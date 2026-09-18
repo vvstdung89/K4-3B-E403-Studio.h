@@ -24,13 +24,13 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 ## §2. Impact &amp; quyết định chọn
 
 - Bảng impact ≥3 ứng viên:
-
+  
   | Ứng viên                                               | Ai gặp                                 | Tần suất / quy mô                                                                               | Mỗi lần tốn gì                 | Khả thi 39h                                         | Chọn?  |
   | ------------------------------------------------------ | -------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------ | --------------------------------------------------- | ------ |
   | B2 · Nhắc LabCoach câu hỏi chưa trả lời                | LabCoach (Tài, Tiến Minh xác nhận job) | **23/107 (21%)** tin `?` không có reply trong pack 3 ngày; bản tin ngày không list được câu tồn | Lướt tay, sót tin, HV chờ      | Có — quét + phân loại + notify, không trả lời HV    | **Có** |
   | B1 · Bot FAQ logistics có căn cứ (standup/XP/deadline) | HV tuần đầu                            | 58 tin người nói standup; bot TB 487 ký tự vs người 78                                          | HV hỏi lại / nhận deadline sai | Có, nhưng quyết định AI là trả lời HV — sai thì đắt | Không  |
   | B1 · “Biết mình không biết” khi bot đoán chính sách    | HV hỏi điểm/hạn nộp                    | Bot handoff chỉ 18/313 tin; vừa đoán vừa nhờ Mod                                                | Thông tin sai đến HV           | Trùng quyết định với FAQ, không tách sản phẩm       | Không  |
-
+  
 - Ứng viên ĐÃ LOẠI: B1 FAQ có căn cứ — pain HV thật nhưng cost-of-error cao (bot trả lời thay người). B1 know-when-not-to-know — là lớp chỗ khó của FAQ, không phải lát cắt riêng.
 - Ứng viên CHỌN: **B2 nhắc LabCoach** — có số 21% câu `?` không reply, bản tin hiện tại không dùng được, 2 LabCoach xác nhận job; AI chỉ nhắc kèm link, người mới trả lời nên sai thì rẻ hơn trả lời thay HV.
 
@@ -56,7 +56,7 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 - §4b. Nguyên tắc đã áp dụng (≥4 — HAX/PAIR, xem guide):
 
   Luồng prototype: bot quét tin nhắn Discord → gọi LLM để xác định câu hỏi cần nhắc → gửi thông báo cho LabCoach tại một kênh riêng. LabCoach đọc lại ngữ cảnh và trực tiếp trả lời học viên.
-
+  
   | Nguyên tắc                                                                        | Áp cụ thể vào đâu trong prototype                                                                                                                                                                                                                                   | Vị trí và cách kiểm tra                                                                                                                                                                                                                                                                                                                                                   |
   | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | **HAX G1 — Làm rõ hệ thống làm được gì**                                          | Lệnh `/labcoach-check` mô tả chức năng kiểm tra câu hỏi chưa được trả lời; thẻ thông báo có tiêu đề “Câu hỏi chưa được phản hồi”. Bot hỗ trợ phát hiện và nhắc việc; việc giải đáp do LabCoach thực hiện.                                                           | [Lệnh kiểm tra](codebase/bot_gateway.py), [thẻ thông báo](codebase/notify/formatter.py). Chạy lệnh và kiểm tra kết quả là danh sách câu cần xem xét, không phải câu trả lời tự động cho học viên.                                                                                                                                                                         |
@@ -65,7 +65,7 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
   | **HAX G5 — Hợp chuẩn mực xã hội**                                                 | Luồng notify gửi vào kênh riêng dành cho LabCoach, tránh đưa danh sách cần hỗ trợ vào kênh trò chuyện chung. Trường “Học viên” trên thẻ dùng nhãn ẩn danh, không hiển thị trực tiếp mã `author`.                                                                    | [Đích webhook](codebase/run_live.py), [trường Học viên](codebase/notify/formatter.py). Cấu hình `DISCORD_WEBHOOK_URL` của kênh LabCoach, gửi thử dữ liệu mô phỏng và kiểm tra đúng kênh nhận, đúng nhãn ẩn danh.                                                                                                                                                          |
   | **HAX G8 — Gạt bỏ dễ dàng**                                                       | Thông báo là gợi ý để LabCoach xem xét. Nếu câu đã được xử lý hoặc bot nhận nhầm, LabCoach có thể bỏ qua và tiếp tục làm việc trên Discord; không phải xác nhận để mở khóa luồng trả lời. Việc bỏ qua chưa được lưu thành phản hồi huấn luyện hay trạng thái xử lý. | [Luồng gửi thông báo](codebase/notify/discord_client.py). Trong demo, bỏ qua một thẻ rồi tiếp tục đọc/trả lời hội thoại; bot không yêu cầu thao tác xác nhận.                                                                                                                                                                                                             |
   | **HAX G10 — Thu hẹp phạm vi khi nghi ngờ; PAIR — Errors &amp; graceful failures** | Khi lời gọi LLM lỗi hoặc thiếu kết quả cho một ứng viên, hệ thống giữ ứng viên để LabCoach kiểm tra thủ công, thay vì tự kết luận đã giải quyết. AI chỉ phân loại, không tự quyết định deadline, điểm hay chính sách.                                               | [Fallback quyết định](codebase/ai_decide/stub.py), [xử lý thiếu kết quả và prompt giới hạn phạm vi](codebase/ai_decide/graph.py). Mô phỏng lỗi API hoặc thiếu một kết quả: ứng viên vẫn có `still_needs_attention=True`; lý do fallback nằm trong kết quả nội bộ/báo cáo chữ. Thẻ Discord hiện chưa hiển thị lý do này và chưa có ngưỡng xử lý riêng cho confidence thấp. |
-
+  
 
   Tham chiếu: [HAX Guidelines](further-reading/hax-guidelines.md) và [PAIR Guidebook, chương 6](further-reading/pair-guidebook-digest.md). Các bước kiểm tra trên dành cho luồng prototype; điểm benchmark của bộ phân loại riêng không thay thế kiểm thử notify trên Discord.
 
@@ -111,7 +111,19 @@ Lượt chạy gần nhất còn sai ở **K4-08/M84662**, **K4-10/M27034** và 
 - **Metric:** case pass khi nhãn, trạng thái, người phản hồi, số lượng và nhóm nhắc khớp expected output.
 - **Run 18/09:** `gpt-5.4`, reasoning `medium`; pass rate **27/30 (90%)**. Checkpoint **4/4**, unit test **20/20**.
 - **Offline hiện tại:** **26/26**, gồm 6 test bổ sung cho luồng live batch với LLM giả lập; chưa xác nhận gửi Discord thực tế.
-- **Quality gate:** chưa chốt ngưỡng nghiệm thu; còn 3 case fail.
+- **Quality gate:** AI: đúng ≥90% trên 30 testcase, không bỏ sót câu thực sự cần LabCoach hỗ trợ.
+
+  1. Khớp Số lượng (Scope &amp; Counts): message_count, question_count và các chỉ số đếm counts (answered, partial_or_deferred, no_visible_response, ignored_messages).
+
+  2. Khớp Chi tiết từng Câu hỏi (Questions List): So khớp 100% từng trường trong mảng questions:
+
+  msg_id, input_index, is_question (True).
+
+  Trạng thái trả lời: label &amp; response_status (answered | partial_or_deferred | no_visible_response).
+
+  Đối tượng trả lời: responder (user | labcoach | none).
+
+  Cần LabCoach xem xét: needs_labcoach_review (True nếu chưa giải đáp/trả lời thiếu ý; False nếu đã xong).
 
 **Phần chưa hoàn tất** ([chi tiết lỗi](eval/REPORT.md)):
 
@@ -144,3 +156,5 @@ Các mốc chức năng theo lịch sử Git đến `0b6206d`; thời gian UTC+7
 | 18/09/2026 11:56 · `45df3d1`            | Thêm tùy chọn xem riêng cho `/labcoach-demo` và lệnh xem CSV luôn ở chế độ ephemeral.                                                                     | Người demo xem trước kết quả; dữ liệu CSV chỉ hiện cho người gọi lệnh.                                                                                                                                                         |
 | 18/09/2026 15:23 · `0d52ff9`            | Thêm 30 testcase, formatter phân loại và benchmark runner; đặt Gemini làm mặc định trong decision graph.                                                  | Đối chiếu nhãn, trạng thái phản hồi và số lượng với kỳ vọng trong `eval/testcases/`, thay vì chỉ quan sát bản tin thủ công.                                                                                                    |
 | 18/09/2026 19:30 · `0b6206d`            | Đưa đủ 30 ca gốc vào golden set; tách nhận diện câu hỏi và xác định trạng thái, thêm bằng chứng, quy tắc gom nhắc và hỗ trợ GPT-5; sửa chấm tin trùng ID. | K4-05/06 kiểm tra ý hỏi còn thiếu, K4-08 kiểm tra gom nhắc, K4-H21 kiểm tra trùng ID. Chạy lại đạt **27/30**, còn lỗi **K4-08, K4-10, K4-H28**; **4/4 checkpoint**, **20/20 test offline** đạt. Xem [báo cáo](eval/REPORT.md). |
+
+
