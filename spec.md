@@ -111,8 +111,14 @@ Lượt chạy gần nhất còn sai ở **K4-08/M84662**, **K4-10/M27034** và 
 - **Metric:** case pass khi nhãn, trạng thái, người phản hồi, số lượng và nhóm nhắc khớp expected output.
 - **Run 18/09:** `gpt-5.4`, reasoning `medium`; pass rate **27/30 (90%)**. Checkpoint **4/4**, unit test **20/20**.
 - **Offline hiện tại:** **26/26**, gồm 6 test bổ sung cho luồng live batch với LLM giả lập; chưa xác nhận gửi Discord thực tế.
-- **Failure:** K4-08 — hiểu sai chuyển ticket; K4-10 — hiểu sai câu hỏi “hoặc”; K4-H28 — gán nhầm phản hồi. [Chi tiết](eval/REPORT.md).
 - **Quality gate:** chưa chốt ngưỡng nghiệm thu; còn 3 case fail.
+
+**Phần chưa hoàn tất** ([chi tiết lỗi](eval/REPORT.md)):
+
+- **K4-08:** Model coi hướng dẫn tạo ticket là chưa giải quyết; golden set chấp nhận hướng dẫn này là đã trả lời.
+- **K4-10:** Model hiểu “email cá nhân hoặc sửa lỗi Zoom” thành cần đáp ứng cả hai, nên nhắc thừa.
+- **K4-H28:** Model gán phản hồi bot cho cả câu hỏi song song không được reply, nên bỏ sót nhắc.
+- **Discord demo thật:** Đã có code đọc tin và gửi nhắc; chưa xác nhận demo trọn luồng của bản batch mới trên server thật. Cần lọc câu đã giải quyết trước khi gửi embed và kiểm tra thông báo thực tế.
 
 ## §8. Phân công &amp; kế hoạch
 
