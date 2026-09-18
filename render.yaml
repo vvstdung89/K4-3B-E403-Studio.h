@@ -12,3 +12,5 @@ services:
         sync: false
       - key: DISCORD_CHANNEL_IDS
         sync: false
+      - key: DISCORD_WEBHOOK_URL
+        sync: false

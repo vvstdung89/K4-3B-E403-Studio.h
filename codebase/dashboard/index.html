@@ -186,6 +186,9 @@
       <label for="dataset-select">Dataset:</label>
       <select id="dataset-select"></select>
       <button id="run-btn" onclick="runSelectedDataset()">&#9654; Run</button>
+      <label id="all-messages-label" style="display: none;">
+        <input type="checkbox" id="all-messages-toggle" onchange="loadTranscript($('#dataset-select').value)"> All history
+      </label>
       <span id="transcript-count" style="color: var(--text-dim); font-size: 12px;"></span>
     </div>
     <div id="transcript-scroll"></div>
@@ -227,16 +230,15 @@ async function toggleTrace(btn) {
     return;
   }
   container.innerHTML = traces
-    .map(
-      (t) => `
+    .map((t) => {
+      const responseText = t.parsed_decision != null ? JSON.stringify(t.parsed_decision, null, 2) : t.raw_llm_response;
+      return `
       <div class="trace-entry">
         <div class="trace-meta">${escapeHtml(t.provider)} / ${escapeHtml(t.model_name)} &middot; ${Math.round(t.latency_ms)}ms &middot; ${fmtTime(t.timestamp)}${t.error ? ` &middot; <span style="color:var(--red)">error: ${escapeHtml(t.error)}</span>` : ""}</div>
-        <div class="trace-label">Raw prompt sent to the model:</div>
-        <pre class="trace-pre">${escapeHtml(t.raw_input_prompt)}</pre>
-        <div class="trace-label">Raw model response:</div>
-        <pre class="trace-pre">${escapeHtml(t.raw_llm_response)}</pre>
-      </div>`
-    )
+        <div class="trace-label">Model response:</div>
+        <pre class="trace-pre">${escapeHtml(responseText)}</pre>
+      </div>`;
+    })
     .join("");
 }
 
@@ -251,6 +253,8 @@ $("#tab-runs").onclick = () => showTab("runs");
 $("#tab-transcript").onclick = () => showTab("transcript");
 
 // ---- Runs & Workflow ----
+let selectedRunId = null; // persists across auto-refresh polls so polling doesn't yank focus away
+
 async function loadRuns() {
   const runs = await (await fetch("/api/runs")).json();
   const list = $("#runs-list");
@@ -271,12 +275,14 @@ async function loadRuns() {
   list.querySelectorAll(".run-item").forEach((el) => {
     el.onclick = () => selectRun(el.dataset.runId, el);
   });
-  // auto-select the most recent run
-  const first = list.querySelector(".run-item");
-  if (first) selectRun(first.dataset.runId, first);
+  // Re-select whatever was already selected (keeps a poll from yanking focus
+  // to the newest run); only default to the newest on first load.
+  const toReselect = (selectedRunId && list.querySelector(`.run-item[data-run-id="${selectedRunId}"]`)) || list.querySelector(".run-item");
+  if (toReselect) selectRun(toReselect.dataset.runId, toReselect);
 }
 
 async function selectRun(runId, el) {
+  selectedRunId = runId;
   document.querySelectorAll(".run-item").forEach((e) => e.classList.remove("selected"));
   if (el) el.classList.add("selected");
   const run = await (await fetch(`/api/runs/${runId}`)).json();
@@ -307,6 +313,7 @@ function candidateCardHtml(c, aiByMsgId) {
     ? '<span class="badge cleared">cleared by AI</span>'
     : '<span class="badge">not yet reviewed</span>';
   const sourceBadge = ai ? `<span class="badge source-${(ai.source || "").split("-")[0]}">${escapeHtml(ai.source)}</span>` : "";
+  const resolvedBadge = ai && ai.resolved ? `<span class="badge posted">&#9989; resolved by ${escapeHtml(ai.resolved.resolved_by)}</span>` : "";
   const confidence = ai && ai.confidence != null ? `<span class="confidence">${Math.round(ai.confidence * 100)}% confidence</span>` : "";
   const rationale = ai ? `<div class="rationale-text">${escapeHtml(ai.rationale)}</div>` : "";
 
@@ -322,7 +329,7 @@ function candidateCardHtml(c, aiByMsgId) {
     <div class="candidate-card">
       <div class="top-line">
         <strong>${escapeHtml(c.msg_id)}</strong>
-        <span>${badge} ${sourceBadge}</span>
+        <span>${badge} ${sourceBadge} ${resolvedBadge}</span>
       </div>
       <div class="content-text">${escapeHtml(c.content)}</div>
       <div class="stage-line"><span>waiting ${c.hours_since_posted.toFixed(1)}h in #${escapeHtml(c.channel)}</span>${confidence}</div>
@@ -409,7 +416,9 @@ async function loadTranscript(dataset) {
   const scroll = $("#transcript-scroll");
   scroll.innerHTML = '<div class="empty-state">Loading&hellip;</div>';
   $("#run-btn").style.display = dataset === "live" ? "none" : "inline-block";
-  const data = await (await fetch(`/api/datasets/${encodeURIComponent(dataset)}/transcript`)).json();
+  $("#all-messages-label").style.display = dataset === "live" ? "inline" : "none";
+  const allParam = dataset === "live" && $("#all-messages-toggle").checked ? "?all=true" : "";
+  const data = await (await fetch(`/api/datasets/${encodeURIComponent(dataset)}/transcript${allParam}`)).json();
   $("#transcript-count").textContent = `${data.messages.length} messages`;
 
   const byId = Object.fromEntries(data.messages.map((m) => [m.msg_id, m]));
@@ -429,11 +438,13 @@ async function loadTranscript(dataset) {
         const wasReviewed = d.source === "live-ai" || d.source === "cache";
         const label = d.still_needs_attention ? "Actual: still needs attention" : wasReviewed ? "Actual: cleared by AI" : "Actual: not yet reviewed";
         const conf = d.confidence != null ? ` &middot; ${Math.round(d.confidence * 100)}% confidence` : "";
+        const resolvedLine = d.resolved ? `<div>&#9989; Resolved by ${escapeHtml(d.resolved.resolved_by)} &middot; ${fmtTime(d.resolved.resolved_at)}</div>` : "";
         decisionBox = `
           <div class="decision-box" onclick="this.classList.toggle('expanded')">
             ${label}${conf} &middot; click for rationale
             <div class="rationale-full">${escapeHtml(d.rationale)}</div>
-          </div>`;
+          </div>
+          ${resolvedLine}`;
       }
 
       let expectedBox = "";
@@ -468,6 +479,19 @@ async function loadTranscript(dataset) {
 
 loadRuns();
 loadDatasets();
+
+// ---- Auto-refresh (no more manual F5) ----
+// Runs tab: re-poll the run list (loadRuns keeps whatever was selected).
+// Transcript tab: only re-poll when viewing the live channel -- a static
+// CSV/testcase dataset never changes, so polling it would just be wasted work.
+const AUTO_REFRESH_MS = 12000;
+setInterval(() => {
+  if ($("#view-runs").classList.contains("active")) {
+    loadRuns();
+  } else if ($("#view-transcript").classList.contains("active") && $("#dataset-select").value === "live") {
+    loadTranscript("live");
+  }
+}, AUTO_REFRESH_MS);
 </script>
 </body>
 </html>
