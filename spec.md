@@ -32,8 +32,11 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 - Ứng viên CHỌN: **B2 nhắc LabCoach** — có số 21% câu `?` không reply, bản tin hiện tại không dùng được, 2 LabCoach xác nhận job; AI chỉ nhắc kèm link, người mới trả lời nên sai thì rẻ hơn trả lời thay HV.
 
 ## §3. Giải pháp tương tự đã nghiên cứu
-- [Sản phẩm 1]: flow / đáng học / đáng né / mình khác gì
-- [Sản phẩm 2]: ...
+- **[Giải pháp tương tự · Bot tự động phân loại Discord của một nhóm khác]**:
+  - **Flow:** Phân tích các tin nhắn trên kênh Discord để xác định câu hỏi chưa được giải đáp, tổng hợp câu hỏi cuối ngày và phân priority.
+  - **Đáng học:** Phân chia Priority cho các câu hỏi(Không quan trọng - Khẩn cấp) và thông tin sớm hay muộn dựa vào đó.
+  - **Đáng né:** Bộ testcase chưa xử lý nhiều tin nhắn cùng lúc. Việc tìm câu trả lời cho một câu hỏi rất phức tạp (*tricky*) giữa các mức độ: `answered` (đầy đủ), `partial_or_deferred` (một phần / hẹn sau), và `no_visible_response` (chưa có phản hồi), dẫn đến nguy cơ tốn kém chi phí nếu gọi xử lý lặp lại từng tin.
+  - **Mình khác gì:** Tập trung phân tích trạng thái câu hỏi trên luồng hội thoại đa tin nhắn và tối ưu chi phí xử lý ngữ cảnh thay vì phân loại rời rạc từng tin đơn lẻ.
 
 ## §4. Thiết kế
 - Lát cắt MỘT CÂU: Một LabCoach lúc rảnh · cần biết câu hỏi học viên nào còn chưa được trả lời · AI quyết định tin nào là câu hỏi còn tồn và cần nhắc · LabCoach nhận danh sách ngắn kèm link tin, đỡ phải lướt tay và hạn chế bỏ sót.
@@ -55,12 +58,12 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 |  |  |  |  |
 
 ## §6. Bốn đường đi của trải nghiệm
-- Happy path:
-- Low-confidence (②):
-- Failure/không căn cứ (①):
+- Happy path: Câu hỏi được trả lời đầy đủ và có reply.
+- Low-confidence (②): Câu hỏi không có từ nhận biết câu hỏi
+- Failure/không căn cứ (①): 
 - Correction (user sửa):
-- Khi bị đòi ngoài phạm vi (③):
-- Case đặc thù domain (④):
+- Khi bị đòi ngoài phạm vi (③): LLM để phân loại, có guardrail nên nhóm không counter trường hợp này
+- Case đặc thù domain (④): 
 
 ## §7. Kiểm thử
 - Chiều chất lượng + định nghĩa kiểm chứng được:
