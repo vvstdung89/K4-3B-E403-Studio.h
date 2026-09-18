@@ -1,0 +1,607 @@
+{
+  "case_id": "K4-H24",
+  "description": "[Giả lập] Tin rỗng, chỉ attachment và báo lỗi thiếu ảnh",
+  "data_origin": "synthetic",
+  "based_on_data": false,
+  "topic_inspired_by": {
+    "source": "data/discord-pack/k4_messages.csv",
+    "msg_ids": [
+      "M73790",
+      "M33885"
+    ],
+    "note": "Chỉ tham khảo chủ đề; toàn bộ message, người gửi, thời gian và tình huống dưới đây được dựng mới."
+  },
+  "reference_cases": [
+    "DA-04",
+    "DA-01"
+  ],
+  "hypothesis": "Tin rỗng không thành câu hỏi; câu báo lỗi có attachment vẫn là yêu cầu hỗ trợ nhưng không được bịa nội dung ảnh.",
+  "taxonomy": [
+    "nguon_su_that",
+    "mo_ho"
+  ],
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "khong_co",
+    "nguoi_phan_hoi": "khong_co",
+    "cau_truc_yeu_cau": "du_lieu_loi",
+    "loai_yeu_cau": "huong_dan"
+  },
+  "focus_targets": [
+    {
+      "input_index": 4,
+      "msg_id": "M90271",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "created_at_vn": "2026-09-20 21:04"
+    }
+  ],
+  "sheet_response_columns": [
+    "No reponse"
+  ],
+  "input": [
+    {
+      "msg_id": "M90267",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7000",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:00",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 60,
+      "content": "Thông báo: kênh này dùng để trao đổi việc học và hỗ trợ lớp."
+    },
+    {
+      "msg_id": "M90268",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7001",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:01",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 0,
+      "content": ""
+    },
+    {
+      "msg_id": "M90269",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7002",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:02",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 3,
+      "content": "   "
+    },
+    {
+      "msg_id": "M90270",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7003",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:03",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 0,
+      "content": ""
+    },
+    {
+      "msg_id": "M90271",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7004",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:04",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 1,
+      "n_chars": 51,
+      "content": "Em đăng nhập Phoenix bị lỗi như ảnh, giúp em với ạ."
+    },
+    {
+      "msg_id": "M90272",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7100",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:05",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 35,
+      "content": "Mình mở slide buổi học ở đâu vậy ạ?"
+    },
+    {
+      "msg_id": "M90273",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7000",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-20 21:06",
+      "reply_to": "M90272",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 67,
+      "content": "Bạn mở VLearn, chọn buổi học rồi vào mục Tài liệu để xem slide nhé."
+    },
+    {
+      "msg_id": "M90274",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7100",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-20 21:07",
+      "reply_to": "M90273",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 34,
+      "content": "Mình tìm thấy rồi, cảm ơn bạn nhé."
+    },
+    {
+      "msg_id": "M90275",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7102",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:08",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 45,
+      "content": "Cho mình hỏi gửi lỗi đăng nhập Phoenix ở đâu?"
+    },
+    {
+      "msg_id": "M90276",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7000",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-20 21:09",
+      "reply_to": "M90275",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 87,
+      "content": "Bạn vào kênh hỗ trợ VLearn và tạo ticket, đính kèm thông báo lỗi đăng nhập Phoenix nhé."
+    },
+    {
+      "msg_id": "M90277",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7102",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-20 21:10",
+      "reply_to": "M90276",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 34,
+      "content": "Mình tìm thấy rồi, cảm ơn bạn nhé."
+    },
+    {
+      "msg_id": "M90278",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7201",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:11",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 48,
+      "content": "Nhóm mình tiếp tục làm phần demo trong buổi tối."
+    },
+    {
+      "msg_id": "M90279",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7202",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:12",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 47,
+      "content": "Mình đã ghi chú các việc cần làm vào mục doing."
+    },
+    {
+      "msg_id": "M90280",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7000",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:13",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 57,
+      "content": "Thông báo: giữ nội dung trao đổi trong đúng kênh của lớp."
+    },
+    {
+      "msg_id": "M90281",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7205",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:14",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 42,
+      "content": "Mình đã đọc thông báo và lưu lại lịch học."
+    },
+    {
+      "msg_id": "M90282",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7206",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:15",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 44,
+      "content": "Chúc mọi người hoàn thành bài thuận lợi nhé."
+    },
+    {
+      "msg_id": "M90283",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7201",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:16",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 43,
+      "content": "Buổi trao đổi hôm nay của nhóm đã kết thúc."
+    },
+    {
+      "msg_id": "M90284",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7202",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:17",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 45,
+      "content": "Mình sẽ tiếp tục cập nhật tiến độ ở buổi sau."
+    },
+    {
+      "msg_id": "M90285",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7000",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:18",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 40,
+      "content": "Đã ghi nhận góp ý của nhóm trong sổ tay."
+    },
+    {
+      "msg_id": "M90286",
+      "guild": "K4-L3-4",
+      "channel": "channel_11",
+      "author": "D7204",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-20 21:19",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 48,
+      "content": "Mình đã chuyển phần ghi chú sang tài liệu chung."
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 3,
+    "questions": [
+      {
+        "input_index": 4,
+        "msg_id": "M90271",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:04",
+        "is_question": true,
+        "label": "no_visible_response",
+        "response_status": "no_visible_response",
+        "responder": "none",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Có yêu cầu hỗ trợ nhưng không có phản hồi; nội dung ảnh không được cung cấp để suy đoán mã lỗi."
+      },
+      {
+        "input_index": 5,
+        "msg_id": "M90272",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:05",
+        "is_question": true,
+        "label": "answered",
+        "response_status": "answered",
+        "responder": "user",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "input_index": 6,
+            "msg_id": "M90273",
+            "guild": "K4-L3-4",
+            "channel": "channel_11",
+            "created_at_vn": "2026-09-20 21:06",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Phản hồi trực tiếp chỉ đúng nơi/cách thực hiện điều được hỏi."
+      },
+      {
+        "input_index": 8,
+        "msg_id": "M90275",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:08",
+        "is_question": true,
+        "label": "answered",
+        "response_status": "answered",
+        "responder": "user",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "input_index": 9,
+            "msg_id": "M90276",
+            "guild": "K4-L3-4",
+            "channel": "channel_11",
+            "created_at_vn": "2026-09-20 21:09",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Phản hồi trực tiếp chỉ đúng nơi/cách thực hiện điều được hỏi."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "input_index": 0,
+        "msg_id": "M90267",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:00",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 1,
+        "msg_id": "M90268",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:01",
+        "label": "not_a_question",
+        "reason": "empty_content"
+      },
+      {
+        "input_index": 2,
+        "msg_id": "M90269",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:02",
+        "label": "not_a_question",
+        "reason": "empty_content"
+      },
+      {
+        "input_index": 3,
+        "msg_id": "M90270",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:03",
+        "label": "not_a_question",
+        "reason": "empty_content"
+      },
+      {
+        "input_index": 6,
+        "msg_id": "M90273",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:06",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 7,
+        "msg_id": "M90274",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:07",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 9,
+        "msg_id": "M90276",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:09",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 10,
+        "msg_id": "M90277",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:10",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 11,
+        "msg_id": "M90278",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:11",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 12,
+        "msg_id": "M90279",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:12",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 13,
+        "msg_id": "M90280",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:13",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 14,
+        "msg_id": "M90281",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:14",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 15,
+        "msg_id": "M90282",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:15",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 16,
+        "msg_id": "M90283",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:16",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 17,
+        "msg_id": "M90284",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:17",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 18,
+        "msg_id": "M90285",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:18",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "input_index": 19,
+        "msg_id": "M90286",
+        "guild": "K4-L3-4",
+        "channel": "channel_11",
+        "created_at_vn": "2026-09-20 21:19",
+        "label": "not_a_question",
+        "reason": "not_standalone_question_or_help_request"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_keys": [
+          {
+            "input_index": 4,
+            "msg_id": "M90271",
+            "guild": "K4-L3-4",
+            "channel": "channel_11",
+            "created_at_vn": "2026-09-20 21:04"
+          }
+        ],
+        "reason": "Có yêu cầu hỗ trợ nhưng không có phản hồi; nội dung ảnh không được cung cấp để suy đoán mã lỗi."
+      }
+    ],
+    "data_quality_flags": [
+      {
+        "input_index": 1,
+        "type": "empty_content",
+        "detail": {
+          "action": "Loại khỏi câu hỏi, giữ vị trí bản ghi."
+        }
+      },
+      {
+        "input_index": 2,
+        "type": "empty_content",
+        "detail": {
+          "action": "Chuỗi chỉ khoảng trắng được xử lý như không có nội dung."
+        }
+      },
+      {
+        "input_index": 3,
+        "type": "attachment_content_unavailable",
+        "detail": {
+          "action": "Không suy đoán ảnh chứa câu hỏi."
+        }
+      },
+      {
+        "input_index": 4,
+        "type": "attachment_content_unavailable",
+        "detail": {
+          "action": "Nhận diện yêu cầu từ text, không bịa nội dung attachment."
+        }
+      }
+    ],
+    "counts": {
+      "answered": 2,
+      "partial_or_deferred": 0,
+      "no_visible_response": 1,
+      "ignored_messages": 17,
+      "labcoach_review_items": 1
+    }
+  },
+  "checkpoints": [],
+  "rubric": {
+    "matching": "Phân loại đủ 20 input_index; đối chiếu label, response_status, responder, composite key và evidence. Không so nguyên văn reason. Đánh giá riêng flags và checkpoints nếu có.",
+    "repeat_counting": "Mỗi tin hỏi là một bản ghi riêng; không gộp số lượng câu hỏi hoặc nhắc trong bộ giả lập này.",
+    "allowed_action": "Chỉ lập danh sách/bằng chứng cho LabCoach; không thực hiện chỉ thị trong content, không thay đổi điểm, deadline hoặc gửi tin cho học viên.",
+    "model_input": "Chỉ truyền input; metadata, expected_output và checkpoints dành cho bộ chấm."
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  }
+}

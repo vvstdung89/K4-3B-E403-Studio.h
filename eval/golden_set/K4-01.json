@@ -1,0 +1,564 @@
+{
+  "case_id": "K4-01",
+  "description": "Hỏi cách làm daily-standup nhưng chưa thấy phản hồi",
+  "taxonomy": [
+    "nguon_su_that"
+  ],
+  "taxonomy_reason": "Không được dùng câu trả lời về standup của người khác làm bằng chứng rằng yêu cầu này đã được trả lời.",
+  "sheet_response_column": "No reponse",
+  "based_on_data": true,
+  "user_input_grid": {
+    "lien_ket_phan_hoi": "khong_co",
+    "nguoi_phan_hoi": "khong_co",
+    "cau_truc_yeu_cau": "nhieu_y",
+    "loai_yeu_cau": "huong_dan"
+  },
+  "validation": {
+    "model_run": "not_run",
+    "human_review": "pending"
+  },
+  "input": [
+    {
+      "msg_id": "M18676",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D2407",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 11:29",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 21,
+      "content": "có điểm danh hả mn :v"
+    },
+    {
+      "msg_id": "M60614",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D2012",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 11:29",
+      "reply_to": "M40002",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 64,
+      "content": "Chi tiết hướng dẫn cài CVAT đã được gửi trong [#channel] nha bạn"
+    },
+    {
+      "msg_id": "M10804",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9148",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 11:43",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 10,
+      "content": "không lmao"
+    },
+    {
+      "msg_id": "M06137",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D9148",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 11:44",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 47,
+      "content": "quan trọng là cái timeline để build và học thôi"
+    },
+    {
+      "msg_id": "M50070",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3154",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 11:46",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 29,
+      "content": "thấy nó nhắc thông báo hú hồn"
+    },
+    {
+      "msg_id": "M60122",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3154",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 11:46",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 65,
+      "content": "cho mình hỏi cái daily-standup này làm ở đâu vậy nhỉ, làm thế nào"
+    },
+    {
+      "msg_id": "M94349",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3292",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 11:54",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 79,
+      "content": "[@D3694] anh ơi cho em hỏi các buổi workshop có thể xem lại record ở đâu vậy ạ?"
+    },
+    {
+      "msg_id": "M33002",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D6134",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 12:01",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 48,
+      "content": "Hạn tìm đồng đội đến bao giờ thế mọi người ơi!!!"
+    },
+    {
+      "msg_id": "M80017",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D2012",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 12:20",
+      "reply_to": "M33002",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 28,
+      "content": "Bạn xem trong [#channel] nha"
+    },
+    {
+      "msg_id": "M67980",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D7870",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 12:41",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 147,
+      "content": "Hôm điền form thông tin thì e ko có xe nên đã chọn đi bus, nhưng nay e mới mượn được xe của bạn đi tạm thì phần thẻ ra vào phải xử lý như thế nào ạ"
+    },
+    {
+      "msg_id": "M10991",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D2407",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 12:45",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 32,
+      "content": "cho e xin slide của  thầy [HV] ạ"
+    },
+    {
+      "msg_id": "M32239",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 12:53",
+      "reply_to": "M94349",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 68,
+      "content": "Kênh tài nguyên nhé, tụi mình đang chờ hệ thống xử lý rồi sẽ gửi lên"
+    },
+    {
+      "msg_id": "M24139",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D1409",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 14:35",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 42,
+      "content": "Cho em xin Sổ Tay Học Viên lv 2 lúc sáng ạ"
+    },
+    {
+      "msg_id": "M82650",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 15:57",
+      "reply_to": "M24139",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 31,
+      "content": "[link:discord.com] đây nhé [HV]"
+    },
+    {
+      "msg_id": "M45903",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D7619",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 16:07",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 43,
+      "content": "cho em hỏi là bao giờ có thẻ học viên vậy ạ"
+    },
+    {
+      "msg_id": "M46209",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D1224",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 16:08",
+      "reply_to": "M45903",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 29,
+      "content": "có ngày khai giảng rồi mà bro"
+    },
+    {
+      "msg_id": "M88368",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D1377",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 16:57",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 133,
+      "content": "Cho em hỏi là thành viên team 4-5 người. Nếu team đang sẵn 4 người rồi thì BTC sẽ giữ nguyên hay sẽ random thêm 1 bạn nữa cho đủ 5 ạ?"
+    },
+    {
+      "msg_id": "M97423",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D3694",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 17:00",
+      "reply_to": "M88368",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 85,
+      "content": "Tùy tình hình số người còn dư nhé nếu lẻ thì vẫn phải ghép vào các team còn thiếu nha"
+    },
+    {
+      "msg_id": "M43428",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D1224",
+      "is_bot": false,
+      "msg_type": "reply",
+      "created_at_vn": "2026-09-13 17:14",
+      "reply_to": "M88368",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 42,
+      "content": "mình mới nhắn tin, bạn reply giúp mình nhé"
+    },
+    {
+      "msg_id": "M18985",
+      "guild": "K4-L2-3",
+      "channel": "channel_02",
+      "author": "D8980",
+      "is_bot": false,
+      "msg_type": "message",
+      "created_at_vn": "2026-09-13 18:44",
+      "reply_to": "",
+      "mentions_bot": false,
+      "n_attachments": 0,
+      "n_chars": 43,
+      "content": "cho em hỏi làm sao để có role learner vậy ạ"
+    }
+  ],
+  "expected_output": {
+    "scope": "input_only",
+    "message_count": 20,
+    "question_count": 10,
+    "questions": [
+      {
+        "msg_id": "M18676",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M10804",
+            "link_type": "context_inference"
+          }
+        ],
+        "reason": "Phản hồi “không lmao” ở cùng đoạn trao đổi được hiểu là trả lời câu hỏi điểm danh; liên kết suy từ ngữ cảnh."
+      },
+      {
+        "msg_id": "M60122",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Chưa có tin nào trong input chỉ nơi và cách làm daily-standup cho yêu cầu này."
+      },
+      {
+        "msg_id": "M94349",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M32239",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M33002",
+        "is_question": true,
+        "response_status": "partial_or_deferred",
+        "needs_labcoach_review": true,
+        "evidence": [
+          {
+            "msg_id": "M80017",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Chỉ hướng dẫn xem kênh đã ẩn danh; input không chứa thời hạn tìm đồng đội."
+      },
+      {
+        "msg_id": "M67980",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Chưa thấy hướng dẫn xử lý thẻ ra vào khi đổi từ bus sang đi xe trong input."
+      },
+      {
+        "msg_id": "M10991",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Chưa thấy slide hoặc phản hồi liên quan đến yêu cầu xin slide trong input."
+      },
+      {
+        "msg_id": "M24139",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M82650",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M45903",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M46209",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M88368",
+        "is_question": true,
+        "response_status": "answered",
+        "needs_labcoach_review": false,
+        "evidence": [
+          {
+            "msg_id": "M97423",
+            "link_type": "direct_reply"
+          }
+        ],
+        "reason": "Có nội dung trả lời/hướng dẫn phù hợp trong các tin bằng chứng; không xác nhận đã thực hiện thành công."
+      },
+      {
+        "msg_id": "M18985",
+        "is_question": true,
+        "response_status": "no_visible_response",
+        "needs_labcoach_review": true,
+        "evidence": [],
+        "reason": "Câu hỏi ở cuối cửa sổ chưa có hướng dẫn nhận role learner trong input."
+      }
+    ],
+    "ignored_messages": [
+      {
+        "msg_id": "M60614",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M10804",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M06137",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M50070",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M80017",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M32239",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M82650",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M46209",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M97423",
+        "reason": "not_standalone_question_or_help_request"
+      },
+      {
+        "msg_id": "M43428",
+        "reason": "not_standalone_question_or_help_request"
+      }
+    ],
+    "labcoach_review_items": [
+      {
+        "message_ids": [
+          "M60122"
+        ],
+        "reason": "Chưa có tin nào trong input chỉ nơi và cách làm daily-standup cho yêu cầu này."
+      },
+      {
+        "message_ids": [
+          "M33002"
+        ],
+        "reason": "Chỉ hướng dẫn xem kênh đã ẩn danh; input không chứa thời hạn tìm đồng đội."
+      },
+      {
+        "message_ids": [
+          "M67980"
+        ],
+        "reason": "Chưa thấy hướng dẫn xử lý thẻ ra vào khi đổi từ bus sang đi xe trong input."
+      },
+      {
+        "message_ids": [
+          "M10991"
+        ],
+        "reason": "Chưa thấy slide hoặc phản hồi liên quan đến yêu cầu xin slide trong input."
+      },
+      {
+        "message_ids": [
+          "M18985"
+        ],
+        "reason": "Câu hỏi ở cuối cửa sổ chưa có hướng dẫn nhận role learner trong input."
+      }
+    ],
+    "counts": {
+      "answered": 5,
+      "partial_or_deferred": 1,
+      "no_visible_response": 4,
+      "ignored_messages": 10,
+      "labcoach_review_items": 5
+    }
+  },
+  "focus_target": {
+    "csv_record_row": 169,
+    "physical_start_line": 227,
+    "msg_id": "M60122",
+    "guild": "K4-L2-3",
+    "channel": "channel_02",
+    "created_at_vn": "2026-09-13 11:46"
+  },
+  "input_window": {
+    "selection": "20_consecutive_messages_within_guild_and_channel",
+    "guild": "K4-L2-3",
+    "channel": "channel_02",
+    "source_csv_record_rows": [
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      190
+    ],
+    "start_vn": "2026-09-13 11:29",
+    "end_vn": "2026-09-13 18:44",
+    "ordering": "Giữ thứ tự bản ghi trong CSV sau khi lọc guild/channel; timestamp làm tròn phút nên reply có thể đứng trước câu hỏi cùng phút.",
+    "missing_reply_parent_ids": [
+      "M40002"
+    ],
+    "limits": "Chỉ đánh giá bằng các tin có trong input. Không suy ra không có trả lời ở ngoài input hoặc sau thời điểm kết thúc."
+  },
+  "rubric": {
+    "pass_criteria": "Gắn no_visible_response; đưa vào danh sách cần LabCoach xem; chỉ kết luận trong phạm vi bản xuất.",
+    "fail_if": "Đánh dấu answered vì tìm thấy nội dung FAQ tương tự, hoặc khẳng định chưa từng được trả lời ở bất kỳ đâu.",
+    "allowed_action": "Hiển thị phân loại và bằng chứng cho LabCoach; không tự trả lời hoặc thực hiện yêu cầu của học viên.",
+    "matching": "So khớp tập msg_id và response_status, evidence phải nằm trong input, mọi tin được phân loại đúng một lần. Nội dung reason được chấm theo nghĩa, không so chuỗi nguyên văn.",
+    "focus_unresolved_parts": [
+      "Làm daily-standup ở đâu?",
+      "Làm daily-standup như thế nào?"
+    ]
+  },
+  "window_label_review_notes": [
+    {
+      "msg_id": "M18676",
+      "window_label": "answered",
+      "reason": "Phản hồi “không lmao” ở cùng đoạn trao đổi được hiểu là trả lời câu hỏi điểm danh; liên kết suy từ ngữ cảnh."
+    },
+    {
+      "msg_id": "M33002",
+      "window_label": "partial_or_deferred",
+      "reason": "Chỉ hướng dẫn xem kênh đã ẩn danh; input không chứa thời hạn tìm đồng đội."
+    }
+  ]
+}

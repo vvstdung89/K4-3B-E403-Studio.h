@@ -23,11 +23,10 @@ Thumbs.db
 *.log
 
 # Generated reports & logs — not a source of truth
+/outputs/
 codebase/output/
 codebase/logs/
 *.jsonl
-codebase/*
-codebase/
 .serena/
 PROJECT_CONTEXT_LOG.md
 
