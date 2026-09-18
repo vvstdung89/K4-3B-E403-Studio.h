@@ -26,5 +26,9 @@ Thumbs.db
 codebase/output/
 codebase/logs/
 *.jsonl
+codebase/*
+codebase/
+.serena/
+PROJECT_CONTEXT_LOG.md
 
 
