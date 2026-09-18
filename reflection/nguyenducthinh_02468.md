@@ -1,4 +1,7 @@
 Khó khăn gặp phải và cách xử lý: Về logic/thuật toán để xử lý dự án. Một dự án có nhiều tính năng mà liên kết với nhau, khi vấn đề chưa thực sự được giải quyết mà tạo tính năng kế tiếp sẽ làm phức tạp thêm và đầu ra sẽ bị nhiễu. Phải xác định đúng ngay từ đầu thuật toán (cách xử lý) và tự review lại trong nhóm. Xác định một bộ testcase chuẩn. Từ việc xác định input đầu vào là những trường gì, bài toán sẽ lấy những trường nào, testcase đấy thể hiện vấn đề gì và kỳ vọng đầu ra. Một bộ testcase chuẩn cũng là một bước để xác thực chính xác cách giải quyết bài toán. Xây dựng một bộ testcase không bao phủ rộng; toàn những happy case khiến đập đi xây lại cả code xử lý.
+
 Điều tôi đã học qua phần việc này: Prompt rõ giúp giảm lỗi nhưng chưa đủ bảo đảm an toàn. Cần kiểm tra tham số, kết quả tool và dữ liệu được ghi, không chỉ nhìn điểm eval. Trước khi bắt tay vào vibe code cần phải đọc kỹ lại bài toán. Đơn giản thì yêu cầu chat bot xây dựng ra các phase đơn giản.
+
 Nếu làm lại, tôi sẽ cải thiện: Dành một thời gian nhất định để tự xem lại bài toán và cắt nhỏ chia làm các vấn đề. Khi tạo testcase thì phải có độ đa dạng và độ bao phủ rộng.
+
 AI/công cụ hỗ trợ tôi đã dùng, dùng vào đâu và cách tôi kiểm tra kết quả: Dùng Claude để vibe code, đối chiếu file, xây dựng và rà soát testcase và soạn báo cáo. Kết quả được review bởi team và tự chạy thực nghiệm trên máy tích hợp các tính năng để chạy thành một luồng hoàn chỉnh.
