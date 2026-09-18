@@ -25,11 +25,11 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 
 - Bảng impact ≥3 ứng viên:
   
-  | Ứng viên                                               | Ai gặp                                 | Tần suất / quy mô                                                                               | Mỗi lần tốn gì                 | Khả thi 39h                                         | Chọn?  |
-  | ------------------------------------------------------ | -------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------ | --------------------------------------------------- | ------ |
-  | B2 · Nhắc LabCoach câu hỏi chưa trả lời                | LabCoach (Tài, Tiến Minh xác nhận job) | **23/107 (21%)** tin `?` không có reply trong pack 3 ngày; bản tin ngày không list được câu tồn | Lướt tay, sót tin, HV chờ      | Có — quét + phân loại + notify, không trả lời HV    | **Có** |
-  | B1 · Bot FAQ logistics có căn cứ (standup/XP/deadline) | HV tuần đầu                            | 58 tin người nói standup; bot TB 487 ký tự vs người 78                                          | HV hỏi lại / nhận deadline sai | Có, nhưng quyết định AI là trả lời HV — sai thì đắt | Không  |
-  | B1 · “Biết mình không biết” khi bot đoán chính sách    | HV hỏi điểm/hạn nộp                    | Bot handoff chỉ 18/313 tin; vừa đoán vừa nhờ Mod                                                | Thông tin sai đến HV           | Trùng quyết định với FAQ, không tách sản phẩm       | Không  |
+  | Ứng viên                                               | Ai gặp                                 | Tần suất / quy mô                                      | Mỗi lần tốn gì                 | Khả thi 39h                                         | Chọn?  |
+  | ------------------------------------------------------ | -------------------------------------- | ------------------------------------------------------ | ------------------------------ | --------------------------------------------------- | ------ |
+  | B2 · Nhắc LabCoach câu hỏi chưa trả lời                | LabCoach (Tài, Tiến Minh xác nhận job) | 13/422 tin nhắn không phản hồ, 99/422 trả lời thiếu    | Lướt tay, sót tin, HV chờ      | Có — quét + phân loại + notify, không trả lời HV    | **Có** |
+  | B1 · Bot FAQ logistics có căn cứ (standup/XP/deadline) | HV tuần đầu                            | 58 tin người nói standup; bot TB 487 ký tự vs người 78 | HV hỏi lại / nhận deadline sai | Có, nhưng quyết định AI là trả lời HV — sai thì đắt | Không  |
+  | B1 · “Biết mình không biết” khi bot đoán chính sách    | HV hỏi điểm/hạn nộp                    | Bot handoff chỉ 18/313 tin; vừa đoán vừa nhờ Mod       | Thông tin sai đến HV           | Trùng quyết định với FAQ, không tách sản phẩm       | Không  |
   
 - Ứng viên ĐÃ LOẠI: B1 FAQ có căn cứ — pain HV thật nhưng cost-of-error cao (bot trả lời thay người). B1 know-when-not-to-know — là lớp chỗ khó của FAQ, không phải lát cắt riêng.
 - Ứng viên CHỌN: **B2 nhắc LabCoach** — có số 21% câu `?` không reply, bản tin hiện tại không dùng được, 2 LabCoach xác nhận job; AI chỉ nhắc kèm link, người mới trả lời nên sai thì rẻ hơn trả lời thay HV.
