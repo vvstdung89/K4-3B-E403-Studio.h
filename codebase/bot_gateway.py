@@ -74,6 +74,13 @@ load_dotenv()  # must run before any os.environ.get() below, or .env-only values
 LIVE_MIN_HOURS_UNANSWERED = float(os.environ.get("LIVE_MIN_HOURS_UNANSWERED", "0.5"))  # /labcoach-check only -- lowered for demo purposes, real messages rarely sit unanswered for a full 4h during a live demo
 MAX_CONTEXT_HOURS = MIN_HOURS_UNANSWERED + LOOKBACK_SAFETY_MARGIN_HOURS  # bounds the LLM context window
 LIVE_CHECK_INTERVAL_MINUTES = float(os.environ.get("LIVE_CHECK_INTERVAL_MINUTES", "30"))  # auto_check_live's cadence
+# auto_check_live's posting destination. Set to a dedicated alerts channel
+# (restores the pre-buttons behavior, where run_live.py/simulate_cron.py's
+# DISCORD_WEBHOOK_URL posted everything to one fixed channel) -- if unset,
+# falls back to posting each candidate into its own originating channel.
+# Either way the "Mark Solved" button works the same: it only needs the bot
+# itself to be the sender, not any particular destination channel.
+DISCORD_ALERT_CHANNEL_ID = os.environ.get("DISCORD_ALERT_CHANNEL_ID")
 
 BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 GUILD_ID = os.environ.get("DISCORD_GUILD_ID")
@@ -122,6 +129,20 @@ def _build_action_view(m, guild_id: str) -> discord.ui.View:
     resolve_btn.callback = _on_resolve
     view.add_item(resolve_btn)
     return view
+
+
+async def _announce_to_channels(text: str) -> None:
+    """auto_check_live's "nothing to report" heartbeat -- posts `text` to
+    the dedicated alert channel if configured, else every monitored channel,
+    so the chat shows the bot actually ran instead of staying silent when
+    there's nothing flagged."""
+    target_ids = [DISCORD_ALERT_CHANNEL_ID] if DISCORD_ALERT_CHANNEL_ID else CHANNEL_IDS
+    for channel_id in target_ids:
+        try:
+            channel = client.get_channel(int(channel_id)) or await client.fetch_channel(int(channel_id))
+            await channel.send(text)
+        except discord.DiscordException as exc:
+            print(f"[auto_check_live] Failed to post to channel {channel_id}: {exc}")
 
 
 async def _reply_with_candidates(
@@ -375,6 +396,7 @@ async def auto_check_live() -> None:
         record["ai_review"] = []
         record["posted"] = []
         log_run(record)
+        await _announce_to_channels("No unanswered questions right now.")
         return
 
     decisions = decide(new_candidates, all_messages=messages)
@@ -391,15 +413,19 @@ async def auto_check_live() -> None:
     still_open = [d for d in decisions if d.still_needs_attention]
     record["posted"] = [d.candidate.message.msg_id for d in still_open]
     log_run(record)
+    if not still_open:
+        await _announce_to_channels("No unanswered questions right now (AI review cleared all candidates).")
+        return
     for d in still_open:
         m = d.candidate.message
         embed = discord.Embed.from_dict(format_candidate_embed(d, MIN_HOURS_UNANSWERED, now, interactive=True))
-        view = _build_action_view(m, GUILD_ID)
+        view = _build_action_view(m, GUILD_ID)  # link button always points at m.channel -- the source message's real location
+        target_channel_id = DISCORD_ALERT_CHANNEL_ID or m.channel
         try:
-            channel = client.get_channel(int(m.channel)) or await client.fetch_channel(int(m.channel))
+            channel = client.get_channel(int(target_channel_id)) or await client.fetch_channel(int(target_channel_id))
             await channel.send(embed=embed, view=view)
         except discord.DiscordException as exc:
-            print(f"[auto_check_live] Failed to post to channel {m.channel}: {exc}")
+            print(f"[auto_check_live] Failed to post to channel {target_channel_id}: {exc}")
 
 
 @client.event

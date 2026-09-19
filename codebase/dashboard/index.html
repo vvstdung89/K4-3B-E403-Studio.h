@@ -94,7 +94,6 @@
   .badge.source-cache { color: var(--accent); border-color: var(--accent-dim); }
   .content-text { color: var(--text-dim); font-size: 13px; margin-top: 6px; }
   .rationale-text { color: var(--text); font-size: 12px; margin-top: 6px; font-style: italic; }
-  .confidence { font-size: 12px; color: var(--text-dim); }
 
   /* Transcript view */
   #transcript-controls { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
@@ -231,7 +230,12 @@ async function toggleTrace(btn) {
   }
   container.innerHTML = traces
     .map((t) => {
-      const responseText = t.parsed_decision != null ? JSON.stringify(t.parsed_decision, null, 2) : t.raw_llm_response;
+      let displayDecision = t.parsed_decision;
+      if (displayDecision != null && typeof displayDecision === "object" && "confidence" in displayDecision) {
+        const { confidence, ...rest } = displayDecision;
+        displayDecision = rest;
+      }
+      const responseText = displayDecision != null ? JSON.stringify(displayDecision, null, 2) : t.raw_llm_response;
       return `
       <div class="trace-entry">
         <div class="trace-meta">${escapeHtml(t.provider)} / ${escapeHtml(t.model_name)} &middot; ${Math.round(t.latency_ms)}ms &middot; ${fmtTime(t.timestamp)}${t.error ? ` &middot; <span style="color:var(--red)">error: ${escapeHtml(t.error)}</span>` : ""}</div>
@@ -314,14 +318,19 @@ function candidateCardHtml(c, aiByMsgId) {
     : '<span class="badge">not yet reviewed</span>';
   const sourceBadge = ai ? `<span class="badge source-${(ai.source || "").split("-")[0]}">${escapeHtml(ai.source)}</span>` : "";
   const resolvedBadge = ai && ai.resolved ? `<span class="badge posted">&#9989; resolved by ${escapeHtml(ai.resolved.resolved_by)}</span>` : "";
-  const confidence = ai && ai.confidence != null ? `<span class="confidence">${Math.round(ai.confidence * 100)}% confidence</span>` : "";
   const rationale = ai ? `<div class="rationale-text">${escapeHtml(ai.rationale)}</div>` : "";
 
   let expectedLine = "";
   if (ai && ai.expected) {
     const e = ai.expected;
-    const match = !!e.needs_labcoach_review === !!(ai && ai.still_needs_attention);
-    const matchBadge = match ? '<span class="badge posted">✅ match</span>' : '<span class="badge cleared">⚠️ mismatch</span>';
+    // Only claim match/mismatch when the AI actually reviewed this candidate --
+    // an unreviewed/stale default's still_needs_attention can coincidentally
+    // equal the expected boolean without the AI ever having weighed in.
+    const matchBadge = !wasReviewed
+      ? '<span class="badge">not yet reviewed</span>'
+      : !!e.needs_labcoach_review === !!ai.still_needs_attention
+      ? '<span class="badge posted">✅ match</span>'
+      : '<span class="badge cleared">⚠️ mismatch</span>';
     expectedLine = `<div class="stage-line"><span>Expected: ${escapeHtml(e.response_status)}${e.needs_labcoach_review ? " (review)" : ""}</span>${matchBadge}</div>`;
   }
 
@@ -332,7 +341,7 @@ function candidateCardHtml(c, aiByMsgId) {
         <span>${badge} ${sourceBadge} ${resolvedBadge}</span>
       </div>
       <div class="content-text">${escapeHtml(c.content)}</div>
-      <div class="stage-line"><span>waiting ${c.hours_since_posted.toFixed(1)}h in #${escapeHtml(c.channel)}</span>${confidence}</div>
+      <div class="stage-line"><span>waiting ${c.hours_since_posted.toFixed(1)}h in #${escapeHtml(c.channel)}</span></div>
       ${expectedLine}
       ${rationale}
       ${ai ? traceToggleHtml(c.msg_id) : ""}
@@ -432,16 +441,16 @@ async function loadTranscript(dataset) {
 
       const replyHint = m.reply_to && byId[m.reply_to] ? `<div class="reply-hint">&#8618; replying to: ${escapeHtml(byId[m.reply_to].content.slice(0, 80))}</div>` : "";
 
+      const wasReviewed = !!m.decision && (m.decision.source === "live-ai" || m.decision.source === "cache");
+
       let decisionBox = "";
       if (m.decision) {
         const d = m.decision;
-        const wasReviewed = d.source === "live-ai" || d.source === "cache";
         const label = d.still_needs_attention ? "Actual: still needs attention" : wasReviewed ? "Actual: cleared by AI" : "Actual: not yet reviewed";
-        const conf = d.confidence != null ? ` &middot; ${Math.round(d.confidence * 100)}% confidence` : "";
         const resolvedLine = d.resolved ? `<div>&#9989; Resolved by ${escapeHtml(d.resolved.resolved_by)} &middot; ${fmtTime(d.resolved.resolved_at)}</div>` : "";
         decisionBox = `
           <div class="decision-box" onclick="this.classList.toggle('expanded')">
-            ${label}${conf} &middot; click for rationale
+            ${label} &middot; click for rationale
             <div class="rationale-full">${escapeHtml(d.rationale)}</div>
           </div>
           ${resolvedLine}`;
@@ -451,7 +460,14 @@ async function loadTranscript(dataset) {
       if (m.expected) {
         const e = m.expected;
         let matchBadge = "";
-        if (m.decision) {
+        if (!m.decision) {
+          matchBadge = "";
+        } else if (!wasReviewed) {
+          // Same reasoning as candidateCardHtml: an unreviewed/stale default
+          // can coincidentally match the expected boolean without the AI
+          // ever having actually run.
+          matchBadge = ' <span class="badge">not yet reviewed</span>';
+        } else {
           const match = !!e.needs_labcoach_review === !!m.decision.still_needs_attention;
           matchBadge = match ? ' <span class="badge posted">✅ match</span>' : ' <span class="badge cleared">⚠️ mismatch</span>';
         }

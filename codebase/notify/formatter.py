@@ -114,11 +114,6 @@ def format_candidate_embed(
                 "inline": True,
             },
             {"name": "💬 Phản hồi", "value": "0 phản hồi · Chưa tiếp nhận", "inline": True},
-            {
-                "name": "🎯 Độ tin cậy",
-                "value": f"{decision.confidence:.0%}" if decision.confidence is not None else "N/A",
-                "inline": True,
-            },
         ],
         "timestamp": tick_time.isoformat(),
     }
